@@ -34,7 +34,7 @@ const Navbarapp=()=> {
 <li className="nav-item px-4"><a className="nav-link text-white" href="/">under 10$</a></li>
 <li className="nav-item px-4"><a className="nav-link text-white" href="/">Best quality</a></li>
 <li className="nav-item px-4"><a className="nav-link text-white" href="/">Newest</a></li>
-<li className="nav-item px-4"><a className="nav-link text-white" href="/">special design for you</a></li>
+<li className="nav-item px-4"><a className="nav-link text-white" href="/customization">special design for you</a></li>
 </ul>
 <ShoppingCart className="carticon"/>
 </nav>
