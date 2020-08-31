@@ -7,13 +7,44 @@ import ListBooks from './listbooks';
 
 export default function Content() {
 
-
+  const products =[
+    {
+        text:"Notebook",
+        img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
+        url:"https://www.amazon.com/dp/B08GMWQFXW"
+    },
+    {
+        text:"Notebook",
+        img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
+        url:"https://www.amazon.com/dp/B08GMWQFXW"
+    },
+    {
+        text:"Notebook",
+        img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
+        url:"https://www.amazon.com/dp/B08GMWQFXW"
+    },
+    {
+        text:"Notebook",
+        img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
+        url:"https://www.amazon.com/dp/B08GMWQFXW"
+    },
+    {
+        text:"Notebook",
+        img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
+        url:"https://www.amazon.com/dp/B08GMWQFXW"
+    },
+    {
+        text:"Notebook",
+        img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
+        url:"https://www.amazon.com/dp/B08GMWQFXW"
+    }
+    ];
 
   return (
     <div class="container-fluid justify-content-center">
    <div className="container py-4">
    <label className="labeltitle">Most selling Notebooks ,Journals , Diary</label>
-   <ListBooks/>
+   <ListBooks products={products}/>
    </div>
     <br/>
     <div className="inforow">
@@ -53,6 +84,7 @@ export default function Content() {
     }
     .inforow{
         font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin-bottom:20px;
     }
     .divcontainicon{
       width:20vw;

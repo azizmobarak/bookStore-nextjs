@@ -57,7 +57,6 @@ export default function Footer() {
             height:auto;
             background-color:rgb(245, 218, 99);
             padding:10px;
-            margin-top:20px;
         }
         .logofooter{
             border-radius:80%;

@@ -1,39 +1,12 @@
 import React,{useState,useEffect} from 'react';
 import {CircularProgress,Button,Paper} from '@material-ui/core';
 
-export default function ListBooks() {
+export default function ListBooks(props) {
 
 const [getproduct,setproducts]=useState([])
 
 useEffect(()=>{
-        const products =[
-            {
-                text:"Notebook",
-                img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-                url:"https://www.amazon.com/dp/B08GMWQFXW"
-            },
-            {
-                text:"Notebook",
-                img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-                url:"https://www.amazon.com/dp/B08GMWQFXW"
-            },
-            {
-                text:"Notebook",
-                img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-                url:"https://www.amazon.com/dp/B08GMWQFXW"
-            },
-            {
-                text:"Notebook",
-                img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-                url:"https://www.amazon.com/dp/B08GMWQFXW"
-            },
-            {
-                text:"Notebook",
-                img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-                url:"https://www.amazon.com/dp/B08GMWQFXW"
-            }
-            ];
-            setproducts(products);
+            setproducts(props.products);
 })
 
 const Listbook= getproduct.map((item)=>{
