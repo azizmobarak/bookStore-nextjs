@@ -1,13 +1,16 @@
 import React from 'react';
 import {ShoppingCart,Menu} from '@material-ui/icons';
+import Link from 'next/link';
 
 const Navbarapp=()=> {
   return (
     <div style={{ width:"100%" }}>
     <nav className="navbar navbar-expand-lg">
-  <a className="navbar-brand" href="#">
+  <Link  href="/">
+  <a className="navbar-brand">
   <img src="/assets/icon/logo.png" />
   </a>
+  </Link>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <Menu/>
   </button>
@@ -18,23 +21,31 @@ const Navbarapp=()=> {
     </form>
     <ul className="navbar-nav mr-auto nav-list-first">
     <li className="nav-item">
-     <a className="nav-link text-white"  href="/">contact</a>
+     <Link href="/contact"><a className="nav-link text-white">contact</a></Link>
     </li>
     <li  className="nav-item">
-    <a className="nav-link text-white" href="/">about</a>
+    <Link href="/about"><a className="nav-link text-white">about</a></Link>
     </li>
     <li className="nav-item">
-     <a className="nav-link text-white" href="/">MyAccount</a>
+     <Link  href="/account"><a className="nav-link text-white">MyAccount</a></Link>
     </li>
   </ul>
   </div>
 </nav>
 <nav  style={{ display:"flex",justifyContent:"space-between"}} className="navbar navbar-expand text-white">
 <ul className="navbar-nav second-list-nav">
-<li className="nav-item px-4"><a className="nav-link text-white" href="/">under 10$</a></li>
-<li className="nav-item px-4"><a className="nav-link text-white" href="/">Best quality</a></li>
-<li className="nav-item px-4"><a className="nav-link text-white" href="/">Newest</a></li>
-<li className="nav-item px-4"><a className="nav-link text-white" href="/customization">special design for you</a></li>
+<li className="nav-item px-4">
+<Link href="/underteen"><a className="nav-link text-white">under 10$</a></Link>
+</li>
+<li className="nav-item px-4">
+<Link href="/bestquality"><a className="nav-link text-white">Best quality</a></Link>
+</li>
+<li className="nav-item px-4">
+<Link href="/newest"><a className="nav-link text-white">Newest</a></Link>
+</li>
+<li className="nav-item px-4">
+<Link href="/customization"><a className="nav-link text-white">special design for you</a></Link>
+</li>
 </ul>
 <ShoppingCart className="carticon"/>
 </nav>

@@ -5,10 +5,10 @@ export default function Login() {
   return (
    <form className="form-group w-50">
    <div className="form-row py-2">
-   <TextField className="w-100" label="Email" type="email" variant="outlined" />
+   <TextField id="email" className="w-100" label="email"  type="email" variant="outlined" />
    </div>
    <div className="form-row py-2">
-   <TextField className="w-100" label="Password" type="password" variant="outlined" />
+   <TextField id="password" className="w-100" label="password"  type="password" variant="outlined" />
    </div>
    <div className="form-row py-1">
    <Button className="w-100" variant='contained' color="primary">Login</Button>
