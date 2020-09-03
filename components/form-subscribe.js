@@ -7,7 +7,7 @@ export default function Subscribe() {
     <div className="subscribe-form">
     <h5>Subscribe to our News letter</h5>
     <br/>
-    <form class="text-center">
+    <form className="text-center">
     <div className="form-row">
     <input className="form-controle" placeholder="Email" label="Email" />
     <Button variant="contained" style={{ backgroundColor:"greenyellow",color:"white",fontWeight:"blod" }}>Subscribe</Button>

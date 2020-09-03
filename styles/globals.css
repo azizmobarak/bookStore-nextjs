@@ -68,3 +68,37 @@ a {
 
 
 /*-------*/
+
+
+/*dashbord main*/
+
+.main-dashbord {
+    height: 100vh;
+    width: 100%;
+    background-color: black;
+    color: white;
+}
+
+.menu-left-dashbord {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    place-items: center;
+}
+
+.menu-left-dashbord-icons {
+    margin-bottom: 30%;
+    cursor: pointer;
+}
+
+.menu-left-dashbord-icons:hover {
+    background-color: rgb(6, 1, 49)
+}
+
+.leftcolm {
+    border-left: 1px white solid;
+}
+
+
+/*----------*/
