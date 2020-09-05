@@ -4,15 +4,15 @@ export default function ContactForm() {
   return (
     <form className="form-group" noValidate autoComplete="off">
     <div className="form-row">
-    <label for="email">Email address</label><br/>
+    <label htmlFor="email">Email address</label><br/>
     <input type="email" className="form-control" id="email" ></input>
     </div>
     <div className="form-row">
-    <label for="subject">Subject</label><br/>
+    <label htmlFor="subject">Subject</label><br/>
     <input type="email" className="form-control" id="subject"></input>
     </div>
     <div className="form-row">
-    <label for="subject">Message</label><br/>
+    <label htmlFor="subject">Message</label><br/>
     <textarea rows="4" className="form-control" id="subject"></textarea>
     </div>
     <div className="form-row justify-content-center">

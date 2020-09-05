@@ -1,0 +1,99 @@
+import React from 'react';
+import { useEffect } from 'react';
+import chartjs from 'chart.js';
+import { useState } from 'react';
+
+
+export default function Main() {
+
+var Bookchart;
+var ViewsChart;
+
+useEffect(()=>{
+   //start Book chart 
+    var ctx = document.getElementById('bookChart');
+    var ctx = document.getElementById('bookChart').getContext('2d');
+    Bookchart = new chartjs(ctx,{
+        type:"bar",
+        data:{
+            labels:['total books',"diary/journal","other categories"],
+            datasets:[{
+                label:"Books",
+                data: [133,94,22],
+                backgroundColor:[
+                    'red',
+                    'blue',
+                    'yellow'
+                ],
+                borderColor:[
+                    'white','white','white'
+                ],
+                borderWidth:1
+            }]
+        },
+        options:{
+            legend: { display: false },
+          title: {
+           display: true,
+           text: 'Predicted world population (millions) in 2050'
+           },
+            scales:{
+                yAxes:[{
+                    ticks:{
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+
+    });
+});
+
+useEffect(()=>{
+   //start Book chart 
+    var ctx = document.getElementById('ViewsChart');
+    var ctx = document.getElementById('ViewsChart').getContext('2d');
+    ViewsChart = new chartjs(ctx,{
+        type:"line",
+        data:{
+            labels:"views chart",
+            datasets:[{
+                label:"Views per day",
+                data: [0,5,21,45,89,44],
+                backgroundColor:[
+                    'white',
+                ],
+                borderColor:[
+                    'white'
+                ],
+                borderWidth:1
+            }]
+        },
+        options:{
+            scales:{
+                yAxes:[{
+                    ticks:{
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+
+    });
+});
+
+  return (
+    <div className="row text-white py-2">
+    <div style={{ borderRight:"0.5px solid white" }} className="col-sm-6">
+    <canvas className="text-white" id="bookChart" width="200" height="150">
+    {Bookchart}
+    </canvas>
+    </div>
+    <div className="col-sm-6">
+    <canvas className="text-white" id="ViewsChart" width="200" height="150">
+    {ViewsChart}
+    </canvas>
+    </div>
+    </div>
+  );
+}

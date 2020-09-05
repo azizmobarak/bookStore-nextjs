@@ -12,6 +12,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "bootstrap": "^4.5.2",
+    "chart.js": "^2.9.3",
     "jquery": "^3.5.1",
     "konva": "^7.0.6",
     "makerjs": "^0.17.0",

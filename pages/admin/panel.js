@@ -5,7 +5,7 @@ import Dashbord from '../../components/admin';
 
 export default function Panel() {
   return (
-    <div className="w-100 h-100">
+    <div style={{backgroundColor:"black",height:"100%"}} className="w-100">
     <Dashbord/>
     </div>
   );
