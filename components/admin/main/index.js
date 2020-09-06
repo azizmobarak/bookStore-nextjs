@@ -35,7 +35,7 @@ useEffect(()=>{
             legend: { display: false },
           title: {
            display: true,
-           text: 'Predicted world population (millions) in 2050'
+           text: 'chart about some products categories'
            },
             scales:{
                 yAxes:[{

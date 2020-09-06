@@ -1,11 +1,14 @@
 import React,{useState} from 'react';
 import {Drawer,Button,TextField} from '@material-ui/core';
-import {Menu,Dashboard,Filter} from '@material-ui/icons';
+import {Menu,Dashboard} from '@material-ui/icons';
 import MenuItems from './menu';
 import Alert from '@material-ui/lab/Alert';
 import MenuIcons from './menu-icons';
 import Main from './main';
 import Book from './main/book';
+import EditProduct from "./main/edit";
+import Messages from "./main/messages";
+import Settings from "./main/settings";
 
 export default function Dashbord() {
 
@@ -19,6 +22,12 @@ const switchmain=()=>{
         return <Main/>
     case "add":
       return <Book/>
+    case "edit":
+      return <EditProduct/>
+    case "messages":
+      return <Messages/>
+    case "settings":
+      return <Settings/>
     default:
       return <p className="text-white">error</p>
   }
@@ -35,13 +44,12 @@ const switchmain=()=>{
      </Button>
     <MenuIcons width={"100px"} changemain={setmain}/>
     <Drawer
-    className="bg-dark"
     open={draweropen}
     id="drawer"
     anchor="left"
     onClose={()=>setdraweropen(false)}
     >
-    <MenuItems method={()=>setdraweropen(false)}/>
+    <MenuItems changemain={setmain} method={()=>setdraweropen(false)}/>
     </Drawer>
     </div>
     <div className="col-sm-11">

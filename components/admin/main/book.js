@@ -10,14 +10,20 @@ export default function Book() {
     }
 
   return (
-    <div className="d-flex justify-content-center align-items-center w-100 bg-white">
-   <form className="d-flex flex-column w-50 h-100 justify-content-center py-3">
+    <div className="d-flex justify-content-center align-items-center w-100">
+   <form className="d-flex flex-column w-50 h-100 justify-content-center p-3 bg-white rounded">
    <TextField 
-   name="name"
+   required={true}
+   color="secondary"
+    name="name"
     className="py-2"
      variant="outlined" 
      label="Book Name" />
    <TextField 
+   multiline={true}
+   rows={3}
+   required={true}
+   color="secondary"
    name="description" 
    className="py-2" 
    variant="outlined"
@@ -25,6 +31,7 @@ export default function Book() {
    <FormControl className="py-2">
         <InputLabel id="categorie-label">Categorie</InputLabel>
         <Select
+          required={true}
           labelId="categorie-label"
           id="categories"
           value={categorie}
@@ -41,6 +48,7 @@ export default function Book() {
       </FormControl>
     {categorie==="other" ?
     <TextField
+   color="secondary"
     name="categorie2"
      className="py-2"
       variant="outlined" 
@@ -49,18 +57,24 @@ export default function Book() {
     null
     }
     <TextField
+    required={true}
+   color="secondary"
     name="price"
      className="py-2"
       variant="outlined"
        label="Price" 
        type="number" />
     <TextField 
+    required={true}
+   color="secondary"
     name="url"
     className="py-2"
      variant="outlined" 
      label="Product URL"
       type="text" />
     <TextField 
+    required={true}
+   color="secondary"
     name="picture"
     className="py-2" 
     variant="outlined" 

@@ -101,5 +101,37 @@ a {
     border-right: 1px white solid;
 }
 
+.listsearch-edite-dashbord {
+    max-height: 400px;
+    overflow-x: auto;
+}
+
+.listsearch-users-dashbord {
+    max-height: 400px;
+    overflow-x: auto;
+}
+
+.labelfile-dashbord {
+    background-color: rgba(81, 16, 200, 0.733);
+    padding: 8px;
+    border-radius: 5%;
+    cursor: pointer;
+}
+
+.labelfile-dashbord:hover {
+    background-color: rgba(97, 46, 192, 0.733);
+}
+
+.labelfilelogo-dashbord {
+    background-color: rgba(65, 15, 160, 0.733);
+    padding: 8px;
+    border-radius: 5%;
+    cursor: pointer;
+}
+
+.labelfilelogo-dashbord:hover {
+    background-color: rgba(84, 59, 131, 0.733);
+}
+
 
 /*----------*/
