@@ -17,7 +17,7 @@ const [openregister,setopenregister]=useState(false);
     <SwipeableDrawer id="drawer" anchor="left" open={openregister} onClose={()=>setopenregister(false)} >
     <div className="registeraccount d-flex flex-column justify-content-center align-items-center" >
      <Register/>
-     <Button onClick={()=>setopenregister(false)} color="default" variant="outlined">or Login?</Button>
+     <Button style={{ margin:"0 0 10px" }} onClick={()=>setopenregister(false)} color="default" variant="outlined">or Login?</Button>
     </div>
     </SwipeableDrawer>
     </React.Fragment>
