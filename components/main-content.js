@@ -3,48 +3,31 @@ import {CircularProgress,Button,Paper} from '@material-ui/core';
 import {Payment,Store,Shop} from '@material-ui/icons';
 import Subscribe from './form-subscribe';
 import ListBooks from './listbooks';
-
+const Endpoint = "http://localhost:2222";
 
 export default function Content() {
 
-  const products =[
-    {
-        text:"Notebook",
-        img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-        url:"https://www.amazon.com/dp/B08GMWQFXW",
-        price:"22"
-    },
-    {
-        text:"Notebook",
-        img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-        url:"https://www.amazon.com/dp/B08GMWQFXW",
-        price:"26"
-    },
-    {
-        text:"Notebook",
-        img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-        url:"https://www.amazon.com/dp/B08GMWQFXW",
-        price:"10"
-    },
-    {
-        text:"Notebook",
-        img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-        url:"https://www.amazon.com/dp/B08GMWQFXW",
-        price:"44"
-    },
-    {
-        text:"Notebook",
-        img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-        url:"https://www.amazon.com/dp/B08GMWQFXW",
-        price:"12"
-    },
-    {
-        text:"Notebook",
-        img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-        url:"https://www.amazon.com/dp/B08GMWQFXW",
-        price:"15"
+const [products,setproducts]=useState([]);
+
+const getproducts =async()=>{
+  await fetch(Endpoint+'/api/allbooks/'+1,{
+    method:"get",
+    credentials:'same-origin'
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    if(data.message=="OK"){
+      setproducts(data.data);
+    settotalpages(data.pages)
     }
-    ];
+  })
+  .catch(err=>console.log("err:"+err));
+}
+
+  useEffect(()=>{
+   getproducts();
+  },[])
+
 
   return (
     <div className="container-fluid justify-content-center">

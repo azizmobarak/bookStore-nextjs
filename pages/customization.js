@@ -12,7 +12,7 @@ function genereteshape(){
 })};
 
 
-export default function Test() {
+export default function Customize() {
 
   const [squars,setsquars]=useState([]);
   const [forms,setforms]=useState([]);

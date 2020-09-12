@@ -31,21 +31,21 @@ export default function Footer() {
     </li>
     </ul>
     </div>
-    <div style={{ placeItems:"start" }} className="col-sm-3 d-flex py-4" >
+    <div className="col-sm-3 d-flex flex-wrap justify-content-start py-4" >
     <img className="px-2" src="/assets/icon/email.svg" width="60" />
     <img className="px-2 logofooter" src="/assets/icon/facebook.svg" width="60" />
     <img className="px-2 " src="/assets/icon/skype.svg" width="60" />
     <img className="px-2 logofooter" src="/assets/icon/whatsapp.svg" width="60" />
     </div>
-    <div className="col-sm-4" >
+    <div className="col-sm-4 d-flex justify-content-center" >
     <ContactForm/>
     </div>
     </div>
-    <div className="row w-75">
-    <div className="col-md-5 justify-content-center text-center">
+    <div className="row w-100">
+    <div className="col-md-5 d-flex justify-content-center text-center">
     Created By <strong> Aziz Mobarak </strong>
     </div>
-    <div className="col-md-7 justify-content-center text-center">
+    <div className="col-md-7 d-flex justify-content-center text-center">
     <img src="/assets/icon/logo.png"/>
     </div>
 

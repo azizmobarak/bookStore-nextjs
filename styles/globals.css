@@ -37,6 +37,15 @@ a {
     width: 100%;
 }
 
+.filterbar {
+    display: flex;
+    justify-content: center;
+}
+
+.imagebooksmobile {
+    margin-left: 10%;
+}
+
 @media only screen and (max-width:500px) {
     .divaccounts {
         width: 100%;
@@ -51,6 +60,14 @@ a {
     }
     .registeraccount {
         width: 100vw;
+    }
+    .imagebooksmobile {
+        margin-left: 30%;
+    }
+    .filterbar {
+        display: grid;
+        justify-content: center;
+        grid-template-columns: auto auto;
     }
 }
 

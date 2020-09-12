@@ -1,53 +1,72 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import Listbooks from '../components/listbooks';
 import Filter from '../components/filter-bar';
+import Pagination from '@material-ui/lab/Pagination';
+const Endpoint = "http://localhost:2222";
 
 export default function UnderTeen() {
 
-    const products =[
-        {
-            text:"Notebook",
-            img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-            url:"https://www.amazon.com/dp/B08GMWQFXW",
-            price:"22"
-        },
-        {
-            text:"Notebook",
-            img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-            url:"https://www.amazon.com/dp/B08GMWQFXW",
-            price:"26"
-        },
-        {
-            text:"Notebook",
-            img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-            url:"https://www.amazon.com/dp/B08GMWQFXW",
-            price:"10"
-        },
-        {
-            text:"Notebook",
-            img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-            url:"https://www.amazon.com/dp/B08GMWQFXW",
-            price:"44"
-        },
-        {
-            text:"Notebook",
-            img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-            url:"https://www.amazon.com/dp/B08GMWQFXW",
-            price:"12"
-        },
-        {
-            text:"Notebook",
-            img:"https://images-na.ssl-images-amazon.com/images/I/41Vn3yzbxGL._SX331_BO1,204,203,200_.jpg",
-            url:"https://www.amazon.com/dp/B08GMWQFXW",
-            price:"15"
-        }
-        ];
+const [page,setpage]=useState(1);
+const [totalpages,settotalpages]=useState(10);
+const [products,setproducts]=useState([]);
+const [isloading,setloading]=useState(false);
+
+
+const getbooks=async()=>{
+  setloading(true)
+  await fetch(Endpoint+'/api/underteen/'+page,{
+    method:"get",
+    credentials:'same-origin'
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    if(data.message=="OK"){
+    setproducts(data.data);
+    settotalpages(data.pages)
+    setloading(false);
+    }
+  })
+  .catch(err=>console.log("err:"+err));
+    
+}
+
+   useEffect(()=>{
+  getbooks();
+   },[page])
+
+  const filterchange= async(e,value)=>{
+    if(value==true){
+    setloading(true)
+   if(value==true)
+   {
+    await fetch(Endpoint+'/api/booksbycategorie/'+page+"/"+e.target.value,{
+      method:"get",
+      credentials:'same-origin'
+    })
+    .then(res=>res.json())
+    .then(data=>{
+    if(data.message=="OK"){
+      setproducts(data.data);
+      settotalpages(data.pages)
+      setloading(false)
+    }
+    })
+    .catch(err=>console.log("err:"+err));
+   }else{
+     getbooks();
+   }
+  }
+  }
 
   return (
     <div className="container-fluid">
-    <Filter products={products}/>
+    <Filter filter={filterchange}  products={products}/>
     <div className="container-fluid py-2">
-    <Listbooks products={products}/>
+    <Listbooks loading={isloading} products={products}/>
+
+<div className="w-100 d-flex justify-content-center py-4" >
+<Pagination page={page} onChange={(e,value)=>setpage(value)} count={totalpages} variant="outlined" shape="rounded" />
+</div>
     </div>
     </div>
   );

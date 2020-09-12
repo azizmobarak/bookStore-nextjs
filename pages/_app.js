@@ -8,8 +8,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import Panel from './admin/panel';
 
+import {Provider,useSelector} from 'react-redux';
+import store from '../reducers/store';
+import islogged from "../components/validatelogin";
 
 function MyApp({ Component, pageProps }) {
+
 
  useEffect(()=>{
    return ()=>{
@@ -23,22 +27,29 @@ function MyApp({ Component, pageProps }) {
    }
  });
 
+useEffect(()=>{
+islogged(Component.name,localStorage.getItem('sessionuser'))
+})
+
 if(Component.name==="Panel"){
   return(
-    <Panel/>
+   <Provider store={store}>
+   <Panel/>
+   </Provider>
   )
 }else{
   return (
-    <div>
+    <Provider store={store}>
     <Head>
+    <script src="https://apis.google.com/js/api:client.js"></script>
     <title>GetintoHome</title>
     </Head>
     <Navbarapp/>
     <Component {...pageProps} />
     <Footer/>
-    </div>
+    </Provider>
     )
 }
 }
 
-export default MyApp
+export default MyApp;

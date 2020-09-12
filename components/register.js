@@ -1,5 +1,8 @@
 import React,{useState} from 'react';
 import {TextField,Button,Checkbox,CircularProgress} from '@material-ui/core';
+const Endpoint = "http://localhost:2222";
+import googleAuth from './googleAuth';
+
 
 export default function Register() {
 
@@ -50,7 +53,7 @@ const registeruser =async(e)=>{
 
   if(error.value==false && ischecked==true && (username!=='' && email!=='' && password!=='')){
 
-    await fetch("http://localhost:2222/api/register",{
+    await fetch(Endpoint+"/api/register",{
       method:"POST",
       credentials:"same-origin",
       headers:{
@@ -128,7 +131,7 @@ const registeruser =async(e)=>{
     }
     </div>
     <div className="form-row">
-   <Button className="w-100" color="secondary" variant="contained">Register with GOOGLE</Button>
+   <Button id="btngoogle" onClick={(e)=>googleAuth(e)} className="w-100" color="secondary" variant="contained">Register with GOOGLE</Button>
    </div>
   
     </form>
