@@ -14,20 +14,21 @@ export default function Dashbord() {
 
 const [draweropen,setdraweropen]=useState(false);
 const [main,setmain]=useState("main");
+const [alert,setalert]=useState({color:"info",variant:"outlined",text:"Welcome to Admin Panel"})
 
 const switchmain=()=>{
   switch(main)
   {
     case "main" :
-        return <Main/>
+        return <Main alert={setalert}/>
     case "add":
-      return <Book/>
+      return <Book alert={setalert}/>
     case "edit":
-      return <EditProduct/>
+      return <EditProduct alert={setalert}/>
     case "messages":
-      return <Messages/>
+      return <Messages alert={setalert}/>
     case "settings":
-      return <Settings/>
+      return <Settings alert={setalert}/>
     default:
       return <p className="text-white">error</p>
   }
@@ -55,9 +56,9 @@ const switchmain=()=>{
     <div className="col-sm-11">
     <Alert
     className="py-3 text-white" 
-    variant="outlined" 
-    color="info">
-    test this alert
+    variant={alert.variant} 
+    color={alert.color}>
+    {alert.text}
     </Alert>
     <div className="py-1 text-white">
     {switchmain()}

@@ -1,18 +1,58 @@
 import React,{useState} from 'react';
 import {TextField,Button,Select,InputLabel,MenuItem,FormControl} from '@material-ui/core';
 import {Add} from '@material-ui/icons';
+const Endpoint="http://localhost:2222/";
 
-export default function Book() {
+export default function Book(props) {
 
     const [categorie,setcategorie]=useState('Journal');
+    const [specificcategorie,setspecificcategorie]=useState('Journal');
+    const [bookname,setbookname]=useState('');
+    const [description,setdescription]=useState('');
+    const [price,setprice]=useState(0);
+    const [url,seturl]=useState('');
+    const [img,setimg]=useState('');
+    const [message,setmessage]=useState({open:false,text:""});
+
     const handleChange=(e)=>{
         setcategorie(e.target.value);
     }
 
+const SubmitBook=async(e)=>{
+e.preventDefault();
+await fetch(Endpoint+"api/newbooks",{
+  method:"post",
+  credentials:"include",
+  headers:{
+    "Content-Type":"application/json"
+  },
+  body:JSON.stringify({
+    title:bookname,
+    description:description,
+    price : parseInt(price),
+    img:img,
+    url:url,
+    categorie:categorie==="other" ? specificcategorie : categorie
+  })
+})
+.then(res=>res.json())
+.then(data=>{
+  console.log(data)
+  if(data.message==="OK")
+  {
+   props.alert({color:"success",variant:"filled",text:data.data})
+   setbookname("");setcategorie("");setimg('');setprice(0);seturl('');
+  }else{
+    props.alert({color:"error",variant:"filled",text:data.data})
+  }
+})
+}
+
   return (
     <div className="d-flex justify-content-center align-items-center w-100">
-   <form className="d-flex flex-column w-50 h-100 justify-content-center p-3 bg-white rounded">
+   <form onSubmit={SubmitBook} className="d-flex flex-column w-50 h-100 justify-content-center p-3 bg-white rounded">
    <TextField 
+   onChange={(e)=>setbookname(e.target.value)}
    required={true}
    color="secondary"
     name="name"
@@ -20,6 +60,7 @@ export default function Book() {
      variant="outlined" 
      label="Book Name" />
    <TextField 
+   onChange={(e)=>setdescription(e.target.value)}
    multiline={true}
    rows={3}
    required={true}
@@ -48,6 +89,7 @@ export default function Book() {
       </FormControl>
     {categorie==="other" ?
     <TextField
+    onChange={(e)=>setspecificcategorie(e.target.value)}
    color="secondary"
     name="categorie2"
      className="py-2"
@@ -57,6 +99,7 @@ export default function Book() {
     null
     }
     <TextField
+    onChange={(e)=>setprice(e.target.value)}
     required={true}
    color="secondary"
     name="price"
@@ -65,6 +108,7 @@ export default function Book() {
        label="Price" 
        type="number" />
     <TextField 
+    onChange={(e)=>seturl(e.target.value)}
     required={true}
    color="secondary"
     name="url"
@@ -73,6 +117,7 @@ export default function Book() {
      label="Product URL"
       type="text" />
     <TextField 
+    onChange={(e)=>setimg(e.target.value)}
     required={true}
    color="secondary"
     name="picture"
@@ -81,6 +126,7 @@ export default function Book() {
     label="Image URL" 
     type="text" />
     <Button 
+    type="submit"
     variant="contained" 
      color="primary">
      New Book <Add fontSize="default" />

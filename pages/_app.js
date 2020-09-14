@@ -11,21 +11,33 @@ import Panel from './admin/panel';
 import {Provider,useSelector} from 'react-redux';
 import store from '../reducers/store';
 import islogged from "../components/validatelogin";
+const Endpoint = "http://localhost:2222";
 
 function MyApp({ Component, pageProps }) {
 
 
  useEffect(()=>{
-   return ()=>{
-   /* document.addEventListener("visibilitychange", event => {
-      if (document.visibilityState == "visible") {
-        console.log("tab is activate")
-      } else {
-        console.log("tab is inactive")
-      }
-    });*/
+   //updateviews
+ try{
+  if(sessionStorage.getItem('viewdtoday')===null && Component.name !=="Panel")
+   {
+     fetch(Endpoint+"/api/updateviews",{
+       method:"PUT",
+       credentials:"include"
+     })
+     .then(res=>res.json())
+     .then(msg=>console.log(msg));
+     sessionStorage.setItem("viewdtoday","viewd")
    }
- });
+ }catch{
+  fetch(Endpoint+"/api/updateviews",{
+       method:"PUT",
+       credentials:"include"
+     })
+     .then(res=>res.json())
+     .then(msg=>console.log(msg));
+ }
+ },[""]);
 
 useEffect(()=>{
 islogged(Component.name,localStorage.getItem('sessionuser'))

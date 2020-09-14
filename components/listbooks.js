@@ -18,6 +18,18 @@ console.log("Cart: "+localStorage.getItem("cartlist"));
 console.log("cart state : "+cart);
 },[cart])
 
+//look if exist in cart or no
+const exist_on_cart=(_id)=>{
+  var tab = JSON.parse(localStorage.getItem("cartlist"));
+  if(localStorage.getItem("cartlist")!==null)
+  {
+  var find = tab.find(item=>_id===item.id);
+  return typeof find !=="undefined" ? find.id : "0";
+  }
+  return "0"
+}
+
+
 const Listbook= getproduct.map((item)=>{
     return(
     <div style={{ minWidth:"140px" }} key={item._id} className="col-md-3 px-4 shadow d-flex flex-column flex-wrap justify-content-center text-center">
@@ -25,9 +37,15 @@ const Listbook= getproduct.map((item)=>{
     <a href={item.url} target="_blank" className="d-flex flex-column justify-content-center center w-100">
     <img className="imagebooksmobile" border="0" src={item.img} width="200" height="300" border="0" alt={item.text}/>
     </a>
-    <div><p style={{ fontSiz:"0.5em" }}>{item.title}</p> <span style={{ color:"red" }}>{item.price+" $"}</span></div>
+    <div><p style={{ fontSiz:"0.5em" }}>{item.title}</p> <span style={{ color:"red",fontSize:"20px" }}>{item.price+" $"}</span></div>
 <Button onClick={()=>window.location.replace(item.url)} style={{ backgroundColor:"rgb(245, 218, 99)", color:"white", fontWeight:'blod' }} >View in Amazon</Button>
-   <Button onClick={()=>apply(addtocart(item._id,item.title,item.description,item.url))} style={{ marginTop:"2px" }} color="" variant="outlined">Add to Cart</Button>
+   {
+    exist_on_cart(item._id)==="0"
+    ?
+    <Button onClick={()=>apply(addtocart(item._id,item.title,item.description,item.url))} style={{ marginTop:"2px" }} color="" variant="outlined">Add to Cart</Button>
+    :
+     <button style={{ fontSize:"14px",padding:"3px",marginTop:"3px" }} disabled className="bg-dark text-white">added to cart</button>
+   }
    </div>
     </div>
     );

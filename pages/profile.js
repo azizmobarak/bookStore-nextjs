@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import getcart from '../reducers/actions/getcart';
-import {Delete} from '@material-ui/icons';
+import {Delete,Refresh} from '@material-ui/icons';
 import removefromcart from "../reducers/actions/removefromcart";
 
 export default function Profile() {
@@ -29,11 +29,12 @@ const cartdata=()=>cart.map(item=>(
   </tr>
 ));
 
+
   return (
     <div className="py-2 container-fluid">
    <nav className="navbar">
    <h3>Products selected</h3>
-   <h4>{cart.length}</h4>
+   <h4> <Refresh style={{ cursor:'pointer' }} onClick={()=> apply(getcart())}/> {cart.length}</h4>
    </nav>
    <br/>
    <table className="table bg-dark text-white">

@@ -3,26 +3,56 @@ import { useEffect } from 'react';
 import Pagination from "@material-ui/lab/Pagination"
 import { Checkbox, Button } from '@material-ui/core';
 import {Refresh,Send} from '@material-ui/icons';
+const Endpoint="http://localhost:2222/";
 
-export default function Messages() {
+export default function Messages(props) {
 
 const [list,setlist]=useState([]);
 const [page,setpage]=useState(1)
+const [count,setcount]=useState(0);
 
 useEffect(()=>{
 //change pages here
 },[page])
 
 const refrechusers=()=>{
-var tab = ["email@email1","email@email2","email@email3","email@email4","email@email5"];
-setlist(tab);
+fetch(Endpoint+"api/allusers/"+page,{
+  method:"GET",
+  credentials:"include"
+})
+.then(res=>res.json())
+.then(data=>{
+  console.log(data);
+  if(data.message==="OK")
+  {
+    setlist(data.data);
+    setcount(data.pages);
+    var len =data.data.lenght;
+    props.alert({color:"success",variant:"filled",text:len+" Users Recived"})
+  }else{
+    props.alert({color:"error",variant:"filled",text:"error try again please!"})
+  }
+})
+.catch(e=>props.alert({color:"error",variant:"filled",text:"error try again please!"}))
+
 }
 
 const listshow=()=>{
     return list.map(item=>(
-    <li className="list-group-item text-dark" key={item}><Checkbox/> {item}</li>
+    <li className="list-group-item text-dark" key={item._id}><Checkbox /> {item.email}</li>
     ));
 }
+
+//------------
+const selectall=(e)=>{
+ if( e.target.checked===true){
+     document.querySelectorAll(".checklist").checked=true;
+ }else{
+  document.querySelectorAll(".checklist").checked=false;
+}
+}
+
+//-----------------
 
   return (
     <div className="row">
@@ -48,7 +78,7 @@ const listshow=()=>{
     <ul className="list-group py-2 listsearch-users-dashbord">
     {list.length>0 ? 
     <li className="list-group-item text-info">
-    <Checkbox/> Select ALL
+    <Checkbox onChange={(e)=>selectall(e)} /> Select ALL
     </li> 
     : null}
     {list.length>0
@@ -62,7 +92,7 @@ const listshow=()=>{
     <Pagination
      page={page}
      onChange={(e,value)=>setpage(value)}
-     count={10} 
+     count={count} 
      color="primary" /> 
     </div>   
     :null}

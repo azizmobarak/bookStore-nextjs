@@ -46,7 +46,41 @@ a {
     margin-left: 10%;
 }
 
+
+/* nab button drawer style list */
+
+
+/*second-list-nav btnmenusecondbar*/
+
+.btnmenusecondbar {
+    display: none;
+}
+
+.subnavlist {
+    display: block;
+}
+
+.desktop-filter {
+    display: block;
+}
+
+.mobile-filter {
+    display: none;
+}
+
 @media only screen and (max-width:500px) {
+    .mobile-filter {
+        display: block;
+    }
+    .desktop-filter {
+        display: none;
+    }
+    .btnmenusecondbar {
+        display: block;
+    }
+    .subnavlist {
+        display: none;
+    }
     .divaccounts {
         width: 100%;
         height: 100vw;
@@ -152,3 +186,45 @@ a {
 
 
 /*----------*/
+
+
+/*-----Faq page ---------*/
+
+.textmainstyle {
+    margin-bottom: 10px;
+    transition: 1s;
+    padding: 20px;
+    font-size: 1.1em;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+
+.divsteper {
+    margin-top: 10px;
+    border: 0.2px dotted;
+    border-bottom-left-radius: 10%;
+    border-bottom-right-radius: 10%;
+    transition: 1s;
+}
+
+.btnaddclosefaq {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.btnaddclosefaq:hover {
+    transition: 1px;
+    background-color: burlywood;
+}
+
+
+/*----------------*/
+
+
+/*transfarm refrech button*/
+
+.transformbtnrefrech:hover {
+    transform: rotate(360deg);
+}
+
+
+/*-----*/

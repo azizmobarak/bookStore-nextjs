@@ -2,12 +2,42 @@ import React from 'react';
 import { useEffect } from 'react';
 import chartjs from 'chart.js';
 import { useState } from 'react';
+const Endpoint="http://localhost:2222/";
 
 
 export default function Main() {
 
 var Bookchart;
 var ViewsChart;
+
+const [all,setall] = useState(0);
+const [journal,setjournal] = useState(0);
+const [other,setother] = useState(0);
+const [views,setviews] = useState(0);
+
+
+useEffect(()=>{
+fetch(Endpoint+"api/admin/bookscount")
+.then(res=>res.json())
+.then(msg=>{
+    if(msg.message==="OK")
+    {
+     setall(msg.data.all);
+     setjournal(msg.data.journal);
+     setother(msg.data.other)
+    }
+});
+
+fetch(Endpoint+"api/countviews")
+.then(res=>res.json())
+.then(msg=>{
+    if(msg.message==="OK")
+    {
+     setviews(msg.data);
+    }
+})
+
+},[''])
 
 useEffect(()=>{
    //start Book chart 
@@ -19,7 +49,7 @@ useEffect(()=>{
             labels:['total books',"diary/journal","other categories"],
             datasets:[{
                 label:"Books",
-                data: [133,94,22],
+                data: [all,journal,other],
                 backgroundColor:[
                     'red',
                     'blue',
@@ -59,7 +89,7 @@ useEffect(()=>{
             labels:"views chart",
             datasets:[{
                 label:"Views per day",
-                data: [0,5,21,45,89,44],
+                data: [0,views-(views/2),views-((views*40)/100),views-((views*10)/100),views],
                 backgroundColor:[
                     'white',
                 ],
