@@ -6,7 +6,6 @@ import {useRouter} from 'next/router';
 import {useDispatch,useSelector} from 'react-redux';
 import logout from '../reducers/actions/logout';
 
-const Endpoint = "http://localhost:2222";
 
 const Navbarapp=()=> {
   

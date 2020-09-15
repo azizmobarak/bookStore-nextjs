@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import {Button, Select, FormControl,MenuItem,TextField,InputLabel } from '@material-ui/core';
 import { Save,CloudUpload, Refresh } from '@material-ui/icons';
 
-export default function Settings() {
+export default function Settings(props) {
 
     const [themcolor,setthemcolor]=useState('#ffffff');
     const [themfont,setthemfont]=useState('Them Font');

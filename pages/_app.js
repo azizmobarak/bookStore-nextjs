@@ -3,6 +3,7 @@ import Head from 'next/head';
 import '../styles/globals.css';
 import Navbarapp from '../components/navbar.js';
 import Footer from '../components/footer';
+import Adminlogin from './admin/login';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-alice-carousel/lib/alice-carousel.css';
@@ -43,12 +44,21 @@ useEffect(()=>{
 islogged(Component.name,localStorage.getItem('sessionuser'))
 })
 
-if(Component.name==="Panel"){
+if(Component.name==="Panel" || Component.name=="Adminlogin" ){
+ if(Component.name==="Panel")
+ {
   return(
-   <Provider store={store}>
-   <Panel/>
+    <Provider store={store}>
+    <Panel/>
+    </Provider>
+   )
+ }
+ if(Component.name==="Adminlogin")
+ {
+  return <Provider store={store}>
+   <Adminlogin/>
    </Provider>
-  )
+ }
 }else{
   return (
     <Provider store={store}>

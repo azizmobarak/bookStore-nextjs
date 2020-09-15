@@ -5,7 +5,7 @@ import { useState } from 'react';
 const Endpoint="http://localhost:2222/";
 
 
-export default function Main() {
+export default function Main(props) {
 
 var Bookchart;
 var ViewsChart;
@@ -17,7 +17,10 @@ const [views,setviews] = useState(0);
 
 
 useEffect(()=>{
-fetch(Endpoint+"api/admin/bookscount")
+fetch(Endpoint+"api/admin/bookscount",{
+    method:"get",
+    credentials:"include"
+})
 .then(res=>res.json())
 .then(msg=>{
     if(msg.message==="OK")
