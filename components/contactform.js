@@ -1,22 +1,20 @@
 import React from 'react';
+import {Button} from '@material-ui/core';
 
 export default function ContactForm() {
   return (
-    <form className="form-group" noValidate autoComplete="off">
-    <div className="form-row">
-    <label htmlFor="email">Email address</label><br/>
-    <input type="email" className="form-control" id="email" ></input>
+    <form className="form-group w-75" noValidate autoComplete="off">
+    <div className="form-row py-2">
+    <input type="email" className="form-control" id="email" placeholder="Email : Email@Email.com" ></input>
     </div>
-    <div className="form-row">
-    <label htmlFor="subject">Subject</label><br/>
-    <input type="email" className="form-control" id="subject"></input>
+    <div className="form-row py-2">
+    <input type="text" className="form-control" id="subject" placeholder="your Question?"></input>
     </div>
-    <div className="form-row">
-    <label htmlFor="subject">Message</label><br/>
-    <textarea rows="4" className="form-control" id="subject"></textarea>
+    <div className="form-row py-2">
+    <textarea rows="4" className="form-control" id="subject" placeholder="Message"></textarea>
     </div>
-    <div className="form-row justify-content-center">
-    <input style={{ marginTop:'10px' }} type="submit" className="btn btn-success" value="leave a message"/>
+    <div className="form-row justify-content-center py-2">
+   <Button style={{ marginTop:'10px' }} type="submit" color="primary" variant="contained" >SEND MESSAGE</Button>
     </div>
     </form>
   );

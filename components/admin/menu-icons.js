@@ -1,9 +1,18 @@
 import React from 'react';
-import {Menu,Dashboard,Book,Edit,Message,Settings,Add,Block} from '@material-ui/icons';
+import {Dashboard,Edit,Message,Settings,Add,Close} from '@material-ui/icons';
+import adminlogin from '../../reducers/actions/adminlogin';
+import {useDispatch} from 'react-redux';
+import {useRouter} from 'next/router';
 
 export default function MenuIcons(props) {
 
-  
+  const dispatch=useDispatch();
+  const router = useRouter();
+
+  const logout=()=>{
+   dispatch(adminlogin(false));
+   router.push('/admin/login')
+  }
 
  if(props.width==="100px")
  {
@@ -14,7 +23,7 @@ export default function MenuIcons(props) {
         <Edit onClick={()=>props.changemain("edit")} fontSize="large" className="menu-left-dashbord-icons"/>
         <Message onClick={()=>props.changemain("messages")} fontSize="large" className="menu-left-dashbord-icons"/>
         <Settings onClick={()=>props.changemain("settings")} fontSize="large" className="menu-left-dashbord-icons"/>
-        <Block onClick={()=>props.changemain("block")} fontSize="large" className="menu-left-dashbord-icons"/>
+        <Close onClick={()=>logout()} fontSize="large" className="menu-left-dashbord-icons"/>
         </div>
       );
  }else{
@@ -25,7 +34,7 @@ export default function MenuIcons(props) {
         <div onClick={()=>props.changemain("edit")} className="menu-left-dashbord-icons"><Edit fontSize="large"/> Edit or delete</div>
         <div onClick={()=>props.changemain("messages")} className="menu-left-dashbord-icons"><Message fontSize="large"/> send Messages</div>
         <div onClick={()=>props.changemain("settings")} className="menu-left-dashbord-icons"><Settings fontSize="large"/> Settings</div>
-        <div onClick={()=>props.changemain("block")} className="menu-left-dashbord-icons"><Block fontSize="large"/> Block list</div>
+        <div onClick={()=>logout()} className="menu-left-dashbord-icons"><Close fontSize="large"/> Block list</div>
         </div>
       );
  }

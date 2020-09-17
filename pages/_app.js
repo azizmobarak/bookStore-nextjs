@@ -22,21 +22,21 @@ function MyApp({ Component, pageProps }) {
  try{
   if(sessionStorage.getItem('viewdtoday')===null && Component.name !=="Panel")
    {
-     fetch(Endpoint+"/api/updateviews",{
+     fetch(Endpoint+"api/updateviews",{
        method:"PUT",
        credentials:"include"
      })
      .then(res=>res.json())
-     .then(msg=>console.log(msg));
+     .then(msg=>0);
      sessionStorage.setItem("viewdtoday","viewd")
    }
  }catch{
-  fetch(Endpoint+"/api/updateviews",{
+  fetch(Endpoint+"api/updateviews",{
        method:"PUT",
        credentials:"include"
      })
      .then(res=>res.json())
-     .then(msg=>console.log(msg));
+     .then(msg=>0);
  }
  },[""]);
 

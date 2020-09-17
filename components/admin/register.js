@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
-const Endpoint="http://localhost:2222/";
+import api from '../db/Endpoin';
+const Endpoint=api;
 
 export default function AdminRegister() {
 
@@ -23,7 +24,6 @@ fetch(Endpoint+"api/admin/new",{
 })
 .then(res=>res.json())
 .then(data=>{
-    console.log("data : "+data)
     if(data.message==="0K")
     {
         setmessage(data.data)

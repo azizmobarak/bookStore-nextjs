@@ -3,10 +3,14 @@ import { useEffect } from 'react';
 import Pagination from "@material-ui/lab/Pagination"
 import { Checkbox, Button } from '@material-ui/core';
 import {Refresh,Send} from '@material-ui/icons';
-const Endpoint="http://localhost:2222/";
+import sessionexpired from '../sessionexpired';
+import { useRouter } from 'next/router';
+import api from '../../db/Endpoin';
+const Endpoint=api;
 
 export default function Messages(props) {
-
+  
+  const router = useRouter();
 const [list,setlist]=useState([]);
 const [page,setpage]=useState(1)
 const [count,setcount]=useState(0);
@@ -27,9 +31,13 @@ fetch(Endpoint+"api/allusers/"+page,{
   {
     setlist(data.data);
     setcount(data.pages);
-    var len =data.data.lenght;
-    props.alert({color:"success",variant:"filled",text:len+" Users Recived"})
+    var len = data.data.length;
+    props.alert({color:"success",variant:"filled",text: len +" Users Recived"})
   }else{
+    if(data.message==="session")
+    {
+      sessionexpired(router);
+    }
     props.alert({color:"error",variant:"filled",text:"error try again please!"})
   }
 })

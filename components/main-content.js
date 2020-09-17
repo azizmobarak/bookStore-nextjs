@@ -3,25 +3,31 @@ import {CircularProgress,Button,Paper} from '@material-ui/core';
 import {Payment,Store,Shop} from '@material-ui/icons';
 import Subscribe from './form-subscribe';
 import ListBooks from './listbooks';
-const Endpoint = "http://localhost:2222";
+import api from './db/Endpoin';
+const Endpoint=api;
 
 export default function Content() {
 
 const [products,setproducts]=useState([]);
+const [loading,setloading]=useState(false);
 
 const getproducts =async()=>{
-  await fetch(Endpoint+'/api/allbooks/'+1,{
+  setloading(true)
+  await fetch(Endpoint+'api/allbooks/'+1,{
     method:"get",
     credentials:'same-origin'
   })
   .then(res=>res.json())
   .then(data=>{
+    setloading(false);
     if(data.message=="OK"){
       setproducts(data.data);
     settotalpages(data.pages)
     }
   })
-  .catch(err=>console.log("err:"+err));
+  .catch(err=>{
+    alert("error in loading products refrech or try later")
+  });
 }
 
   useEffect(()=>{
@@ -33,7 +39,7 @@ const getproducts =async()=>{
     <div className="container-fluid justify-content-center">
    <div className="container py-4">
    <label className="labeltitle">Most selling Notebooks ,Journals , Diary</label>
-   <ListBooks products={products}/>
+   <ListBooks loading={loading} products={products}/>
    </div>
     <br/>
     <div className="inforow">

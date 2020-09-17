@@ -1,11 +1,12 @@
 import React,{useState,useEffect} from 'react';
-import {ShoppingCart,Menu} from '@material-ui/icons';
-import {SwipeableDrawer,Button} from '@material-ui/core';
+import {ShoppingCart,Menu,Facebook,Twitter,Pinterest, Instagram, MessageRounded,Close, Search} from '@material-ui/icons';
+import {SwipeableDrawer,Button, TextField,LinearProgress} from '@material-ui/core';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {useDispatch,useSelector} from 'react-redux';
 import logout from '../reducers/actions/logout';
-
+import api from './db/Endpoin';
+const Endpoint=api;
 
 const Navbarapp=()=> {
   
@@ -18,22 +19,91 @@ const Navbarapp=()=> {
   const cart = useSelector(state=>state.Cart);
   const [menustatus1,setmenustatus1]=useState(false);
   const [menustatus2,setmenustatus2]=useState(false);
+  const [themcolor,setthemcolor]=useState('');
+  const [themfont,setthemfont]=useState('');
+  const [chatname,setchatname]=useState('');
+  const [openchat,setopenchat]=useState(false);
+  
+
+
+
+//change login and count cart
+useEffect(()=>{
+  setlogin(localStorage.getItem('sessionuser'));
+  if(localStorage.getItem("cartlist")!==null){
+  setcountproducts(JSON.parse(localStorage.getItem("cartlist")).length);
+  }else{
+    setcountproducts(0);
+  }
+  },[session,cart])
+  
+
+useEffect(()=>{
+ try{
+   if(localStorage.getItem('sessionuser')!=="true"){
+  var top = document.getElementById('topbar');
+  document.addEventListener('scroll',()=>{
+    if(window.scrollY>5){
+     top.classList.add('position-fixed')
+     top.style.zIndex="99";
+     document.getElementById('chat-bar').style.display="block";
+    }else{
+      top.classList.remove('position-fixed')
+      top.style.zIndex="0"; 
+      document.getElementById('chat-bar').style.display="none";
+    }
+  });
+}
+ }catch{}
+});
+
+//open close the chat bar
+const chatbaropen=()=>{
+ try{
+  var first = document.getElementById('chatfirstlook');
+  var second = document.getElementById('chatsecondlook');
+  var chat =  document.getElementById('chat-bar');
+   chat.classList.add('chat-bar2');
+   chat.classList.remove('chat-bar');
+   first.style.display="block";
+    second.style.display="none";
+   setopenchat(true);
+ }catch{
+alert("Error please try later")
+ }
+}
+const chatbarclose=()=>{
+ try{
+  var first = document.getElementById('chatfirstlook');
+  var second = document.getElementById('chatsecondlook');
+  var chat =  document.getElementById('chat-bar');
+  chat.classList.remove('chat-bar2');
+   chat.classList.add('chat-bar');
+   first.style.display="none";
+    second.style.display="none";
+   setopenchat(false);
+ }catch{
+alert("Error please try later")
+ }
+}
+
+//chat bar start chat
+
+const getusername=()=>{
+var first = document.getElementById('chatfirstlook');
+var second = document.getElementById('chatsecondlook');
+if(chatname!=='')
+{
+  first.style.display="none";
+  second.style.display="block";
+}
+}
 
 
 //redirect to search page
 const toserach=()=>{
 router.push('/search/'+search);
 }
-
-//change login and count cart
-useEffect(()=>{
-setlogin(localStorage.getItem('sessionuser'));
-if(localStorage.getItem("cartlist")!==null){
-setcountproducts(JSON.parse(localStorage.getItem("cartlist")).length);
-}else{
-  setcountproducts(0);
-}
-},[session,cart])
 
 //change dropdown selection
 const userselectoptions=async(e)=>{
@@ -48,6 +118,26 @@ if(e.target.value==="profile")
 }
 }
 
+//get them color ---------------
+const getthemcolor=()=>{
+  fetch(Endpoint+"api/user/them/color",{
+    method:"GET",
+    credentials:"include",
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    console.log(data)
+    if(data.message==="OK"){
+    setthemcolor(data.data);
+    }else{
+     console.log(data.data);
+    }
+  });
+}
+useEffect(()=>{
+  getthemcolor();
+},[themcolor])
+//----------------
 
 
 //change navbar
@@ -65,13 +155,13 @@ return (
   <Menu/>
 </button>
 <div style={{ marginLeft:"10vw",width:"100%" }} className="collapse navbar-collapse" id="navbarSupportedContent">
-  <div className=" w-50 form-inline my-2 my-lg-0 formsearch">
-    <input onChange={(e)=>setsearch(e.target.value)} className="w-75 form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-    <button onClick={()=>toserach()} className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-  </div>
+   <div className="form-inline my-2 my-lg-0 formsearch">
+      <input onChange={(e)=>setsearch(e.target.value)} className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+      <button onClick={()=>toserach()} className="btn bg-white my-2 my-sm-0" type="submit"><Search/></button>
+    </div>
   <ul className="navbar-nav mr-auto nav-list-first">
   <li className="nav-item">
-   <Link href="/contact"><a className="nav-link text-white">contact</a></Link>
+   <Link href="#footer"><a className="nav-link text-white">contact</a></Link>
   </li>
   <li  className="nav-item">
   <Link href="/about"><a className="nav-link text-white">about</a></Link>
@@ -141,7 +231,7 @@ return (
 <style jsx>
 {`
 .formsearch>input{
-width:30vw
+width:33vw
 }
 .nav-list-first{
 margin-left:10vw;
@@ -186,6 +276,43 @@ else{
 
   return (
     <div style={{ width:"100%" }}>
+    <div id="chat-bar" className="chat-bar">
+   {openchat==false ? 
+    <div onClick={()=>chatbaropen()}  className="w-100 h-auto d-flex justify-content-between cursorpointrt">
+    Chat with us <MessageRounded/>
+    </div>
+    :
+    <div onClick={()=>chatbarclose()}  className="w-100 h-auto d-flex justify-content-between cursorpointrt">
+    Close chat <Close/>
+    </div>
+  }
+    <div className="w-100 h-100 p-1 bg-white d-flex flex-column justify-content-center align-items-center">
+   <div className="w-100" id="chatfirstlook">
+   <TextField style={{ marginLeft:"10%" }} onChange={(e)=>setchatname(e.target.value)} label="your name" variant="outlined" className="w-75" />
+    <br/><br/>
+    <Button style={{ marginLeft:"30%" }} onClick={()=>getusername()} color="default" variant='contained' >start chat</Button>
+   </div>
+   <div style={{ display:"none",color:"black" }} id="chatsecondlook">
+   Welcome {chatname} , please wait ..<br/>
+   <LinearProgress/>
+   </div>
+    </div>
+    </div>
+    <div style={{ height:"auto" }} id="topbar" className="d-flex w-100 justify-content-between bg-dark py-1">
+    <ul className="nav w-50">
+    <li className="nav-item px-2"><Link href="/privacy-policy"><a className="text-white font-weight-normal">privacy policy</a></Link></li>
+    <li className="nav-item px-2"><Link  href="/FAQ"><a className="text-white font-weight-normal">FAQ</a></Link></li>
+    <li className="nav-item px-2"><Link  href="/account"><a className="text-white font-weight-normal">Login</a></Link></li>
+    </ul>
+
+    <ul className="nav">
+    <li className="nav-item px-2"><a className="text-white" _blank href=""><Facebook/></a></li>
+    <li className="nav-item px-2"><a className="text-white" _blank href=""><Pinterest/></a></li>
+    <li className="nav-item px-2"><a className="text-white" _blank href=""><Twitter/></a></li>
+    <li className="nav-item px-2"><a className="text-white" _blank href=""><Instagram/></a></li>
+    </ul>
+    
+    </div>
     <nav className="navbar navbar-expand-lg">
   <Link  href="/">
   <a className="navbar-brand">
@@ -198,11 +325,11 @@ else{
   <div style={{ marginLeft:"10vw",width:"100%" }} className="collapse navbar-collapse" id="navbarSupportedContent">
     <div className="form-inline my-2 my-lg-0 formsearch">
       <input onChange={(e)=>setsearch(e.target.value)} className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-      <button onClick={()=>toserach()} className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <button onClick={()=>toserach()} className="btn bg-white my-2 my-sm-0" type="submit"><Search/></button>
     </div>
     <ul className="navbar-nav mr-auto nav-list-first">
     <li className="nav-item">
-     <Link href="/contact"><a className="nav-link text-dark">contact</a></Link>
+     <a href="#footer" className="nav-link text-dark">contact</a>
     </li>
     <li  className="nav-item">
     <Link href="/about"><a className="nav-link text-dark">about</a></Link>
@@ -264,7 +391,7 @@ else{
 <style jsx>
 {`
 .formsearch>input{
-  width:30vw
+  width:33vw
 }
 .nav-list-first{
   margin-left:10vw;

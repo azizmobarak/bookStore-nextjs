@@ -2,7 +2,8 @@ import React from 'react';
 import { useEffect } from 'react';
 import chartjs from 'chart.js';
 import { useState } from 'react';
-const Endpoint="http://localhost:2222/";
+import api from '../../db/Endpoin';
+const Endpoint=api;
 
 
 export default function Main(props) {

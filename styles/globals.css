@@ -228,3 +228,93 @@ a {
 
 
 /*-----*/
+
+
+/*-------chat bar -------------*/
+
+.chat-bar {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    place-items: center;
+    color: white;
+    font-size: 1.2em;
+    padding: 10px;
+    width: 180px;
+    height: 42px;
+    margin: 43.4% 86% 0;
+    z-index: 3;
+    background-color: rgb(245, 175, 45);
+    display: none;
+}
+
+.chat-bar2 {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    place-items: center;
+    color: white;
+    font-size: 1.2em;
+    padding: 10px;
+    width: 300px;
+    height: 420px;
+    margin: 15.4% 77% 0;
+    z-index: 3;
+    background-color: rgb(245, 175, 45);
+    display: none;
+}
+
+@media only screen and (max-width:600px) {
+    .chat-bar {
+        position: fixed;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        place-items: center;
+        color: white;
+        font-size: 1.2em;
+        padding: 10px;
+        width: 180px;
+        height: 40px;
+        margin: 170% 67% 0;
+        z-index: 3;
+        background-color: rgb(245, 175, 45);
+        display: none;
+    }
+    .chat-bar2 {
+        position: fixed;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        place-items: center;
+        color: white;
+        font-size: 1.2em;
+        padding: 10px;
+        width: 300px;
+        height: 420px;
+        margin: 108% 46% 0;
+        z-index: 3;
+        background-color: rgb(245, 175, 45);
+        display: none;
+    }
+}
+
+.cursorpointrt {
+    cursor: pointer;
+    padding: 1px;
+    height: auto;
+}
+
+.cursorpointrt:hover {
+    background-color: rgb(243, 153, 50);
+}
+
+#chatfirstlook,
+#chatsecondlook {
+    display: none;
+}
+
+
+/*-------------------------*/

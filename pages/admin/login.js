@@ -1,10 +1,10 @@
 import React,{useEffect, useState} from 'react';
 import AdminLogin from '../../components/admin/login';
 import AdminRegister from '../../components/admin/register';
-import Panel from './panel';
 import {useRouter} from 'next/router';
 
-const Endpoint="http://localhost:2222/";
+import api from '../../components/db/Endpoin';
+const Endpoint=api;
 
 export default function Adminlogin() {
 
@@ -20,7 +20,6 @@ export default function Adminlogin() {
   }
 
 useEffect(()=>{
-    console.log("exec: "+getnumberadmin());
     setcountadmins(getnumberadmin());
 })
 
@@ -40,15 +39,18 @@ if(verifyloginadmin()==="true"){
 }
 
 const getnumberadmin=()=>{
+   try{
     fetch(Endpoint+"api/admin/count")
     .then(res=>res.json())
     .then(data=>{
         if(data.message==="OK")
         {
-            console.log("count "+data.data);
             return data.data;
         }else{
             return 0;
         }
     })
+   }catch{
+     return 0;
+   }
 }

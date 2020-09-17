@@ -1,10 +1,13 @@
 import React,{useState} from 'react';
 import {TextField,Button,Select,InputLabel,MenuItem,FormControl} from '@material-ui/core';
 import {Add} from '@material-ui/icons';
-const Endpoint="http://localhost:2222/";
+import sessionexpired from '../sessionexpired';
+import { useRouter } from 'next/router';
+import api from '../../db/Endpoin';
+const Endpoint=api;
 
 export default function Book(props) {
-
+     const router = useRouter();
     const [categorie,setcategorie]=useState('Journal');
     const [specificcategorie,setspecificcategorie]=useState('Journal');
     const [bookname,setbookname]=useState('');
@@ -43,6 +46,10 @@ await fetch(Endpoint+"api/newbooks",{
    props.alert({color:"success",variant:"filled",text:data.data})
    setbookname("");setcategorie("");setimg('');setprice(0);seturl('');
   }else{
+    if(data.message==="session")
+    {
+      sessionexpired(router);
+    }
     props.alert({color:"error",variant:"filled",text:data.data})
   }
 })

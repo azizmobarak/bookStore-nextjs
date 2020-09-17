@@ -2,7 +2,8 @@ import React from 'react';
 import {TextField,Button} from '@material-ui/core';
 import { useState } from 'react';
 import {useRouter} from "next/router"
-const Endpoint = "http://localhost:2222";
+import api from './db/Endpoin';
+const Endpoint=api;
 
 import login from "../reducers/actions/login";
 import {useSelector,useDispatch} from "react-redux";
@@ -20,7 +21,7 @@ const dispatch = useDispatch();
 //send login auth
 const Auth=(e)=>{
 e.preventDefault();
-fetch(Endpoint+'/api/login',{
+fetch(Endpoint+'api/login',{
   method:"POST",
   credentials:"include",
   headers:{

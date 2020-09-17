@@ -14,8 +14,6 @@ useEffect(()=>{
 },[props.products])
 
 useEffect(()=>{
-console.log("Cart: "+localStorage.getItem("cartlist"));
-console.log("cart state : "+cart);
 },[cart])
 
 //look if exist in cart or no
@@ -38,11 +36,11 @@ const Listbook= getproduct.map((item)=>{
     <img className="imagebooksmobile" border="0" src={item.img} width="200" height="300" border="0" alt={item.text}/>
     </a>
     <div><p style={{ fontSiz:"0.5em" }}>{item.title}</p> <span style={{ color:"red",fontSize:"20px" }}>{item.price+" $"}</span></div>
-<Button onClick={()=>window.location.replace(item.url)} style={{ backgroundColor:"rgb(245, 218, 99)", color:"white", fontWeight:'blod' }} >View in Amazon</Button>
+<Button onClick={()=>window.location.replace(item.url)} style={{ backgroundColor:"rgb(245, 218, 99)", color:"white", fontWeight:'blod' }} color="default" >View in Amazon</Button>
    {
     exist_on_cart(item._id)==="0"
     ?
-    <Button onClick={()=>apply(addtocart(item._id,item.title,item.description,item.url))} style={{ marginTop:"2px" }} color="" variant="outlined">Add to Cart</Button>
+    <Button onClick={()=>apply(addtocart(item._id,item.title,item.description,item.url))} style={{ marginTop:"2px" }} color="default" variant="outlined">Add to Cart</Button>
     :
      <button style={{ fontSize:"14px",padding:"3px",marginTop:"3px" }} disabled className="bg-dark text-white">added to cart</button>
    }

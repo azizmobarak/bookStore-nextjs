@@ -2,7 +2,8 @@ import React,{useState} from 'react';
 import adminlogin from '../../reducers/actions/adminlogin';
 import {useDispatch, useSelector} from 'react-redux';
 import {useRouter} from 'next/router';
-const Endpoint="http://localhost:2222/";
+import api from '../db/Endpoin';
+const Endpoint=api;
 
 export default function AdminLogin() {
 
@@ -32,10 +33,8 @@ const loginadmin=(e)=>{
     .then(data=>{
        
         if(data.message==="OK")
-        {
-            console.log("enter")  
+        { 
            dispatch(adminlogin(true));
-           console.log("session: "+session)
            router.push('/admin/panel')
         }else{
             setmessage(data.data);

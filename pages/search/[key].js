@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Listbooks from '../../components/listbooks';
 import Filter from '../../components/filter-bar';
 import Pagination from '@material-ui/lab/Pagination';
-const Endpoint = "http://localhost:2222";
 import {useRouter} from 'next/router';
+import api from '../../components/db/Endpoin';
+const Endpoint=api;
 
 export default function Search() {
 
@@ -28,7 +29,7 @@ export default function Search() {
                     setloading(false)
                 }
             })
-            .catch(err => console.log("err:" + err));
+            .catch(err =>0);
 
     }
 
@@ -49,7 +50,7 @@ export default function Search() {
                         settotalpages(data.pages)
                     }
                 })
-                .catch(err => console.log("err:" + err));
+                .catch(err =>0);
         }
     }
 

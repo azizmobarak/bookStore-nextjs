@@ -1,6 +1,6 @@
 const adminsession = (state = false, action) => {
     switch (action.type) {
-        case 'login':
+        case true:
             return state = true;
         default:
             return state = false;

@@ -3,10 +3,14 @@ import {TextField, Button,Checkbox} from "@material-ui/core";
 import { Search, Delete,Edit } from '@material-ui/icons';
 import { useState } from 'react';
 import { useEffect } from 'react';
-const Endpoint="http://localhost:2222/";
+import sessionexpired from "../sessionexpired";
+import { useRouter } from 'next/router';
+import api from '../../db/Endpoin';
+const Endpoint=api;
 
 export default function EditProduct(props) {
-
+  
+const router = useRouter();
 const [list,setlist]=useState([]);
 const [keysearch,setkeysearch]=useState("");
 const [title,settitle]=useState('');
@@ -31,6 +35,10 @@ await fetch(Endpoint+"api/admin/searchbookwithoutlimit/"+keysearch,{
     var leng = data.data.length;
     props.alert({color:"success",variant:"filled",text:leng+" Items Found"})
   }else{
+    if(data.message==="session")
+    {
+      sessionexpired(router);
+    }
     props.alert({color:"error",variant:"filled",text:"error detected try again"})
   }
 })
@@ -74,6 +82,10 @@ const bookupdate=(e)=>{
     {
       props.alert({color:"success",variant:"filled",text:data.data});
     }else{
+      if(data.message==="session")
+      {
+        sessionexpired(router);
+      }
       props.alert({color:"error",variant:"filled",text:data.data});
     }
   })
@@ -102,10 +114,14 @@ await fetch(Endpoint+"api/deletebook",{
     searchlist();
     props.alert({color:"success",variant:"filled",text:data.data});
   }else{
+    if(data.message==="session")
+    {
+      sessionexpired(router);
+    }
     props.alert({color:"error",variant:"filled",text:data.data});
   }
 })
-//.catch(e=>props.alert({color:"error",variant:"filled",text:"Error"}))
+.catch(e=>props.alert({color:"error",variant:"filled",text:"Error"}))
 }
 
 //----------------------------

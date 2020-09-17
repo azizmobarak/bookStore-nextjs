@@ -2,7 +2,8 @@ import React,{useState,useEffect} from 'react';
 import Listbooks from '../components/listbooks';
 import Filter from '../components/filter-bar';
 import Pagination from '@material-ui/lab/Pagination';
-const Endpoint = "http://localhost:2222";
+import api from '../components/db/Endpoin';
+const Endpoint=api;
 
 export default function bestquality() {
 
@@ -13,7 +14,7 @@ const [isloading,setloading]=useState(false);
 
 const getbooks=async()=>{
     setloading(true)
-    await fetch(Endpoint+'/api/allbooks/'+page,{
+    await fetch(Endpoint+'api/allbooks/'+page,{
         method:"get",
         credentials:'same-origin'
       })
@@ -37,7 +38,7 @@ useEffect(()=>{
       setloading(true)
    if(value==true)
    {
-    await fetch(Endpoint+'/api/booksbycategorie/'+page+"/"+e.target.value,{
+    await fetch(Endpoint+'api/booksbycategorie/'+page+"/"+e.target.value,{
       method:"get",
       credentials:'same-origin'
     })
@@ -49,7 +50,7 @@ useEffect(()=>{
       setloading(false)
     }
     })
-    .catch(err=>console.log("err:"+err));
+    .catch(err=>0);
    }
   }
 

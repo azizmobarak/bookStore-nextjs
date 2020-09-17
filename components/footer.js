@@ -1,3 +1,4 @@
+import { Instagram, Pinterest, Twitter,Facebook } from '@material-ui/icons';
 import React from 'react';
 import ContactForm from './contactform';
 
@@ -5,22 +6,20 @@ export default function Footer() {
 
 
   return (
-    <div className="footer">
+    <section id="footer" className="footer">
     <div className="row w-100 text-center py-2">
-    <div className="col-sm-5 text-left" >
+    <div className="col-sm-5 h-100 d-flex justify-content-center align-items-center flex-column text-left" >
     <ul className="nav">
     <li className="nav-item bg-transparent border-0">
     <ul className="list-group">
     <li className="list-group-item bg-transparent border-0"><a>about</a></li>
     <li className="list-group-item bg-transparent border-0"><a>FAQ</a></li>
-    <li className="list-group-item bg-transparent border-0"><a>Who we are?</a></li>
     </ul>
     </li>
     <li className="nav-item bg-transparent border-0">
     <ul className="list-group">
     <li className="list-group-item bg-transparent border-0"><a>Store</a></li>
     <li className="list-group-item bg-transparent border-0"><a>Privacy</a></li>
-    <li className="list-group-item bg-transparent border-0"><a>About Author</a></li>
     </ul>
     </li>
     <li className="nav-item bg-transparent border-0">
@@ -29,26 +28,32 @@ export default function Footer() {
     <li className="list-group-item bg-transparent border-0"><a>Contact</a></li>
     </ul>
     </li>
+    <li>
+    <ul className="list-group">
+    <li className="list-group-item bg-transparent border-0"><a>Who we are?</a></li>
+    <li className="list-group-item bg-transparent border-0"><a>About Author</a></li>
     </ul>
+    </li>
+    </ul>
+    <br/><br/>
+    <div className="w-100 d-flex flex-column px-2 justify-content-center align-items-center">
+    <h5>FOLLOW US :</h5>
+    <div className="d-flex w-50 justify-content-between align-items-center">
+    <Facebook/> <Twitter/> <Pinterest/> <Instagram/>
     </div>
-    <div className="col-sm-3 d-flex flex-wrap justify-content-start py-4" >
-    <img className="px-2" src="/assets/icon/email.svg" width="60" />
-    <img className="px-2 logofooter" src="/assets/icon/facebook.svg" width="60" />
-    <img className="px-2 " src="/assets/icon/skype.svg" width="60" />
-    <img className="px-2 logofooter" src="/assets/icon/whatsapp.svg" width="60" />
     </div>
-    <div className="col-sm-4 d-flex justify-content-center" >
+    </div>
+    <div className="col-sm-2 d-flex justify-content-center align-items-center">
+    <img src="/assets/icon/logo.png"/>
+    </div>
+    <div className="col-sm-5 d-flex justify-content-center" >
     <ContactForm/>
     </div>
     </div>
     <div className="row w-100">
-    <div className="col-md-5 d-flex justify-content-center text-center">
+    <div className="col-md-12 d-flex justify-content-center text-center">
     Created By <strong> Aziz Mobarak </strong>
     </div>
-    <div className="col-md-7 d-flex justify-content-center text-center">
-    <img src="/assets/icon/logo.png"/>
-    </div>
-
     </div>
     <style jsx>
         {`
@@ -63,7 +68,7 @@ export default function Footer() {
         }
         `}
         </style>
-    </div>
+    </section>
     
   );
 }

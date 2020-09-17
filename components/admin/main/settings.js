@@ -1,11 +1,25 @@
 import React,{useState} from 'react';
-import {Button, Select, FormControl,MenuItem,TextField,InputLabel } from '@material-ui/core';
+import {Button, Select, FormControl,MenuItem,TextField } from '@material-ui/core';
 import { Save,CloudUpload, Refresh } from '@material-ui/icons';
+import sessionexpired from '../sessionexpired';
+import {useRouter} from 'next/router';
+import api from '../../db/Endpoin';
+const Endpoint=api;
 
 export default function Settings(props) {
 
     const [themcolor,setthemcolor]=useState('#ffffff');
     const [themfont,setthemfont]=useState('Them Font');
+    const router = useRouter();
+
+//change color
+const newcolor=()=>{
+ changecolor(themcolor,props,router);
+}
+//change font
+const newfont=()=>{
+  changefont(themfont,props,router);
+}
 
   return (
     <div className="w-100">
@@ -22,15 +36,19 @@ export default function Settings(props) {
     <div className="card-title">
     Them color
     </div>
-    <div className="d-flex justify-content-between w-50 text-white align-items-center">
+    <div className="d-flex justify-content-between w-75 text-white align-items-center">
     <input 
     onChange={(e)=>setthemcolor(e.target.value)}
      className="form-control w-75" 
      type="color"
       name="themcolor" />
-    <p className="px-2">
-    {themcolor}
-    </p>
+    <Button 
+    style={{ marginLeft:"2%" }}
+     className="px-4 bg-info" 
+     color="primary" variant="contained"
+     onClick={()=>newcolor()} >
+     <Refresh/>
+     </Button>
     </div>
     </div>
 <br/><br/>
@@ -38,8 +56,8 @@ export default function Settings(props) {
     <div className="card-title">
     Them Font
     </div>
-    <div className="d-flex justify-content-between w-50 text-white align-items-center">
-    <FormControl className="p-2 bg-white w-100">
+    <div className="d-flex justify-content-between w-75 text-white align-items-center">
+    <FormControl className="py-1 bg-white w-75">
         <Select
          variant="standard"
           required={true}
@@ -60,6 +78,14 @@ export default function Settings(props) {
           <MenuItem style={{ fontFamily:"-moz-initial" }} value="-moz-initial">moz-initial</MenuItem>
         </Select>
       </FormControl>
+
+      <Button 
+      onClick={()=>newfont()}
+      style={{ marginLeft:"2%" }} 
+      className="py-2 bg-info" color="primary" 
+      variant="contained">
+      <Refresh/>
+      </Button>
     </div>
 
     </div>
@@ -105,16 +131,22 @@ export default function Settings(props) {
            hidden />
      </form>
     </div>
+    <Button 
+    className="w-100 bg-info text-white" 
+    color="primary"
+    variant="outlined"
+     >Change slider <Refresh/>
+     </Button>
     </div>
     <br/>
     <div className="w-100 d-flex justify-content-between">
     <div className="card-title">
     App Logo
     </div>
-    <div className="d-flex justify-content-between text-white align-items-center">
-     <form>
+    <div className="d-flex justify-content-between text-white align-items-center w-75">
+     <form className="w-50">
      <label 
-     className="labelfilelogo-dashbord" 
+     className="labelfilelogo-dashbord w-100 text-center" 
      htmlFor="logo" >
      Logo <CloudUpload/>
      </label>
@@ -123,16 +155,16 @@ export default function Settings(props) {
       name="logo"
        id="logo" hidden />
      </form>
+     <Button 
+     style={{ marginTop:"-8px" }}
+     className="w-25 bg-info text-white py-2" 
+     color="primary"
+     variant="outlined"
+      ><Refresh/>
+      </Button>
     </div>
     </div>
 <br/><br/>
-    <Button 
-    className="w-100 bg-info text-white" 
-    color="primary"
-    variant="outlined"
-     >Apply all changes <Refresh/>
-     </Button>
-
     </div>
     </div>
     </div>
@@ -233,4 +265,65 @@ export default function Settings(props) {
 </div>
 </div>
   );
+}
+
+const changecolor=(color,props,router)=>{
+try{
+  fetch(Endpoint+"api/admin/them/color",{
+    method:"PUT",
+    credentials:"include",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+      color:color
+    })
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    if(data.message==="OK")
+    {
+      props.alert({color:"success",variant:"filled",text:data.data});
+    }
+    else{
+      if(data.message==="session"){
+        sessionexpired(router);
+      }
+      props.alert({color:"error",variant:"filled",text:data.data});
+    }
+  })
+}catch{
+  props.alert({color:"error",variant:"filled",text:data.data});
+}
+}
+///// font function
+const changefont=(font,props,router)=>{
+try{
+  fetch(Endpoint+"api/admin/them/font",{
+    method:"PUT",
+    credentials:"include",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+      font:font
+    })
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    console.log(data)
+    if(data.message==="OK")
+    {
+      props.alert({color:"success",variant:"filled",text:data.data});
+    }
+    else{
+      if(data.message==="session"){
+        sessionexpired(router);
+      }
+      props.alert({color:"error",variant:"filled",text:data.data});
+    }
+  })
+}catch{
+  props.alert({color:"error",variant:"filled",text:"error try later"});
+}
 }

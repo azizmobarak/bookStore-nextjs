@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import {TextField,Button,Checkbox,CircularProgress} from '@material-ui/core';
-const Endpoint = "http://localhost:2222";
+import api from './db/Endpoin';
+const Endpoint=api;
 import googleAuth from './googleAuth';
 
 
@@ -49,11 +50,9 @@ setgeneralerror({type:"error",error:""})
 const registeruser =async(e)=>{
   e.preventDefault();
   setbtnloading(true);
-  console.log("clicked")
-
   if(error.value==false && ischecked==true && (username!=='' && email!=='' && password!=='')){
 
-    await fetch(Endpoint+"/api/register",{
+    await fetch(Endpoint+"api/register",{
       method:"POST",
       credentials:"same-origin",
       headers:{
@@ -67,7 +66,6 @@ const registeruser =async(e)=>{
     })
     .then(res=>res.json())
     .then(data=>{
-      console.log(data.message)
       if(data.message=="OK")
       {
         setgeneralerror({type:"OK",error:data.data});
@@ -76,7 +74,7 @@ const registeruser =async(e)=>{
       }
       setbtnloading(false)
     })
-   .catch(err=>console.log(err));
+   .catch(err=>0);
   }else{
     if(ischecked==false)
     {
