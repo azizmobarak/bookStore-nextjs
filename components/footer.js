@@ -1,12 +1,36 @@
 import { Instagram, Pinterest, Twitter,Facebook } from '@material-ui/icons';
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import ContactForm from './contactform';
+import api from './db/Endpoin';
+const Endpoint=api;
 
-export default function Footer() {
+export default function Footer(props) {
 
+  const [themcolor,setthemcolor]=useState('');
+  
+//get them color ---------------
+const getthemcolor=()=>{
+  fetch(Endpoint+"api/user/them/color",{
+    method:"GET",
+    credentials:"include",
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    if(data.message==="OK"){
+    setthemcolor(data.data);
+    }else{
+     setthemcolor("rgb(245, 218, 99)")
+    }
+  })
+  .catch(e=>setthemcolor("rgb(245, 218, 99)"));
+}
+useEffect(()=>{
+  getthemcolor();
+},[themcolor])
+//----------------
 
   return (
-    <section id="footer" className="footer">
+    <section style={{ backgroundColor:themcolor,fontFamily:props.font }} id="footer" className="footer">
     <div className="row w-100 text-center py-2">
     <div className="col-sm-5 h-100 d-flex justify-content-center align-items-center flex-column text-left" >
     <ul className="nav">
@@ -60,7 +84,6 @@ export default function Footer() {
         .footer{
             width:100%;
             height:auto;
-            background-color:rgb(245, 218, 99);
             padding:10px;
         }
         .logofooter{
