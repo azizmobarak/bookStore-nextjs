@@ -10,6 +10,10 @@ export default function Settings(props) {
 
     const [themcolor,setthemcolor]=useState('#ffffff');
     const [themfont,setthemfont]=useState('Them Font');
+    const [logofile,setlogofile]=useState("");
+    const [img1,setimg1]=useState("");
+    const [img2,setimg2]=useState("");
+    const [img3,setimg3]=useState("");
     const router = useRouter();
 
 //change color
@@ -98,45 +102,57 @@ const newfont=()=>{
       </div>
   <div
    className="d-flex justify-content-between w-100 text-white align-items-center">
-     <form>
-          <label 
-          className="labelfile-dashbord" 
-          htmlFor="img1" >image 1 <CloudUpload/>
+     <form onSubmit={(e)=>changeslider(e,img1,img2,img3,props,router)} id="slider" className="d-flex flex-column justify-content-between w-100">
+        <div className="d-flex justify-content-between w-100">
+        <div>
+        <label 
+        className="labelfile-dashbord" 
+        htmlFor="img1" >image 1 <CloudUpload/>
+        </label>
+        <input 
+        onChange={(e)=>setimg1(e.target.value)}
+        type="file" 
+        name="img1"
+         id="img1" hidden />
+        </div>
+     
+         <div>
+         <label className="labelfile-dashbord"
+         htmlFor="img2" >
+         image 2 <CloudUpload/>
+         </label>
+        <input
+        onChange={(e)=>setimg2(e.target.value)}
+        type="file"
+         name="img2" 
+         id="img2"
+          hidden />
+         </div>
+     
+         <div>
+         <label 
+         className="labelfile-dashbord"
+          htmlFor="img3" >
+          image 3 <CloudUpload/>
           </label>
-          <input 
-          type="file" 
-          name="img1"
-           id="img1" hidden />
-     </form>
-     <form>
-          <label className="labelfile-dashbord"
-           htmlFor="img2" >
-           image 2 <CloudUpload/>
-           </label>
-          <input type="file"
-           name="img2" 
-           id="img2"
-            hidden />
-     </form>
-     <form>
-          <label 
-          className="labelfile-dashbord"
-           htmlFor="img3" >
-           image 3 <CloudUpload/>
-           </label>
-          <input 
-          type="file"
-           name="img3" 
-           id="img3" 
-           hidden />
+         <input 
+         onChange={(e)=>setimg3(e.target.value)}
+         type="file"
+          name="img3" 
+          id="img3" 
+          hidden />
+         </div>
+
+        </div>
+        <Button 
+        type="submit"
+        className="w-100 bg-info text-white" 
+        color="primary"
+        variant="outlined"
+         >Change slider <Refresh/>
+         </Button>
      </form>
     </div>
-    <Button 
-    className="w-100 bg-info text-white" 
-    color="primary"
-    variant="outlined"
-     >Change slider <Refresh/>
-     </Button>
     </div>
     <br/>
     <div className="w-100 d-flex justify-content-between">
@@ -144,24 +160,30 @@ const newfont=()=>{
     App Logo
     </div>
     <div className="d-flex justify-content-between text-white align-items-center w-75">
-     <form className="w-50">
+     <form
+       id='logoform'
+       onSubmit={(e)=>changelogo(e,logofile,props,router)} 
+       className="d-flex justify-content-between text-white align-items-center w-100" 
+       >
      <label 
-     className="labelfilelogo-dashbord w-100 text-center" 
+     className="labelfilelogo-dashbord w-50 text-center" 
      htmlFor="logo" >
      Logo <CloudUpload/>
      </label>
      <input 
+     onChange={(e)=>setlogofile(e.target.value)}
      type="file"
       name="logo"
        id="logo" hidden />
+       <Button 
+       type='submit'
+       style={{ marginTop:"-8px" }}
+       className="w-25 bg-info text-white py-2" 
+       color="primary"
+       variant="outlined"
+        ><Refresh/>
+        </Button>
      </form>
-     <Button 
-     style={{ marginTop:"-8px" }}
-     className="w-25 bg-info text-white py-2" 
-     color="primary"
-     variant="outlined"
-      ><Refresh/>
-      </Button>
     </div>
     </div>
 <br/><br/>
@@ -267,6 +289,8 @@ const newfont=()=>{
   );
 }
 
+
+//color update 
 const changecolor=(color,props,router)=>{
 try{
   fetch(Endpoint+"api/admin/them/color",{
@@ -296,6 +320,7 @@ try{
   props.alert({color:"error",variant:"filled",text:data.data});
 }
 }
+
 ///// font function
 const changefont=(font,props,router)=>{
 try{
@@ -326,4 +351,58 @@ try{
 }catch{
   props.alert({color:"error",variant:"filled",text:"error try later"});
 }
+}
+
+
+
+//update Logo 
+const changelogo=(e,logofile,props,router)=>{
+  e.preventDefault();
+var form = new FormData(document.getElementById('logoform'));
+form.append('logo',logofile);
+fetch(Endpoint+"api/admin/them/logo",{
+  method:"POST",
+  credentials:"include",
+  body:form
+})
+.then(res=>res.json())
+.then(data=>{
+  if(data.message==="OK")
+  {
+    props.alert({color:"success",variant:"filled",text:data.data});
+  }
+  else{
+    if(data.message==="session"){
+      sessionexpired(router);
+    }
+    props.alert({color:"error",variant:"filled",text:data.data});
+  }
+})
+}
+
+//update slider 
+const changeslider=(e,img1,img2,img3,props,router)=>{
+  e.preventDefault();
+var form = new FormData(document.getElementById('slider'));
+form.append('img1',img1);
+form.append('img2',img2);
+form.append('img3',img3);
+fetch(Endpoint+"api/admin/them/slider",{
+  method:"POST",
+  credentials:"include",
+  body:form
+})
+.then(res=>res.json())
+.then(data=>{
+  if(data.message==="OK")
+  {
+    props.alert({color:"success",variant:"filled",text:data.data});
+  }
+  else{
+    if(data.message==="session"){
+      sessionexpired(router);
+    }
+    props.alert({color:"error",variant:"filled",text:data.data});
+  }
+})
 }
