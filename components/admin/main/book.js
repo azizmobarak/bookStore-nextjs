@@ -86,7 +86,7 @@ await fetch(Endpoint+"api/newbooks",{
           onChange={handleChange}
           name="categorie1"
         >
-          <MenuItem value="journal">Journal or Duary</MenuItem>
+          <MenuItem value="journal">Journal or Diary</MenuItem>
           <MenuItem value="book">Book</MenuItem>
           <MenuItem value="other">Other</MenuItem>
           <MenuItem value="clothes">Clothes</MenuItem>
