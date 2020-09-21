@@ -7,7 +7,43 @@ const Endpoint=api;
 export default function Footer(props) {
 
   const [themcolor,setthemcolor]=useState('');
+  const [themlogo,setthemlogo]=useState('');
+  const [themfont,setthemfont]=useState('');
+
+  //font 
   
+//get them color ---------------
+const getthemfont=()=>{
+  fetch(Endpoint+"api/user/font")
+  .then(res=>res.json())
+  .then(data=>{
+    if(data.message==="OK"){
+      setthemfont(data.data)
+    }else{
+    setthemfont('normal')
+    }
+  });
+}
+useEffect(()=>{
+  getthemfont();
+},[themfont])
+
+  //get logo
+  const getlogo=()=>{
+    fetch(Endpoint+"api/user/logo")
+    .then(res=>res.json())
+    .then(data=>{
+      if(data.message==="OK"){
+        setthemlogo(data.data);
+      }else{
+       setthemlogo("/assets/icon/logo.png")
+      }
+    })
+  }
+  
+  useEffect(()=>{
+    getlogo();
+  },['']);
 //get them color ---------------
 const getthemcolor=()=>{
   fetch(Endpoint+"api/user/them/color",{
@@ -30,7 +66,7 @@ useEffect(()=>{
 //----------------
 
   return (
-    <section style={{ backgroundColor:themcolor,fontFamily:props.font }} id="footer" className="footer">
+    <section style={{ backgroundColor:themcolor,fontFamily:themfont }} id="footer" className="footer">
     <div className="row w-100 text-center py-2">
     <div className="col-sm-5 h-100 d-flex justify-content-center align-items-center flex-column text-left" >
     <ul className="nav">
@@ -68,7 +104,7 @@ useEffect(()=>{
     </div>
     </div>
     <div className="col-sm-2 d-flex justify-content-center align-items-center">
-    <img src="/assets/icon/logo.png"/>
+    <img src={Endpoint+themlogo} width="130" height="60"/>
     </div>
     <div className="col-sm-5 d-flex justify-content-center" >
     <ContactForm/>

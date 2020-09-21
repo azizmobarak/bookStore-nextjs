@@ -8,23 +8,22 @@ const Endpoint=api;
 export default function UnderTeen() {
 
 const [page,setpage]=useState(1);
-const [totalpages,settotalpages]=useState(10);
+const [totalpages,settotalpages]=useState(0);
 const [products,setproducts]=useState([]);
 const [isloading,setloading]=useState(false);
 
 
 const getbooks=async()=>{
   setloading(true)
-  await fetch(Endpoint+'api/underteen/'+page,{
-    method:"get",
-    credentials:'same-origin'
-  })
+  await fetch(Endpoint+'api/underteen/'+page)
   .then(res=>res.json())
   .then(data=>{
     if(data.message=="OK"){
     setproducts(data.data);
     settotalpages(data.pages)
     setloading(false);
+    }else{
+      setproducts(data);
     }
   })
   .catch(err=>0);
@@ -46,6 +45,7 @@ const getbooks=async()=>{
     })
     .then(res=>res.json())
     .then(data=>{
+      console.log("underteen: "+data)
     if(data.message=="OK"){
       setproducts(data.data);
       settotalpages(data.pages)

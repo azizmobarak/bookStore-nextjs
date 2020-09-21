@@ -20,12 +20,29 @@ const Navbarapp=()=> {
   const [menustatus1,setmenustatus1]=useState(false);
   const [menustatus2,setmenustatus2]=useState(false);
   const [themcolor,setthemcolor]=useState('');
-  const [themfont,setthemfont]=useState('');
   const [chatname,setchatname]=useState('');
   const [openchat,setopenchat]=useState(false);
+  const [themlogo,setthemlogo]=useState('');
+  const [themfont,setthemfont]=useState('');
   
 
+//get logo
+const getlogo=()=>{
+  fetch(Endpoint+"api/user/logo")
+  .then(res=>res.json())
+  .then(data=>{
+    console.log(Endpoint+data);
+    if(data.message==="OK"){
+      setthemlogo(data.data);
+    }else{
+     setthemlogo("/assets/icon/logo.png")
+    }
+  })
+}
 
+useEffect(()=>{
+  getlogo();
+},['']);
 
 //change login and count cart
 useEffect(()=>{
@@ -120,15 +137,11 @@ if(e.target.value==="profile")
 
 //get them color ---------------
 const getthemcolor=()=>{
-  fetch(Endpoint+"api/user/them/color",{
-    method:"GET",
-    credentials:"include",
-  })
+  fetch(Endpoint+"api/user/them/color")
   .then(res=>res.json())
   .then(data=>{
-    console.log(data)
     if(data.message==="OK"){
-    setthemcolor(data.data);
+      setthemcolor(data.data)
     }else{
      console.log(data.data);
     }
@@ -139,16 +152,33 @@ useEffect(()=>{
 },[themcolor])
 //----------------
 
+//-----------font 
+
+//get them color ---------------
+const getthemfont=()=>{
+  fetch(Endpoint+"api/user/font")
+  .then(res=>res.json())
+  .then(data=>{
+    if(data.message==="OK"){
+      setthemfont(data.data)
+    }else{
+    setthemfont('normal')
+    }
+  });
+}
+useEffect(()=>{
+  getthemfont();
+},[themfont])
 
 //change navbar
 if(islogin==="true"){
 //logged in 
 return (
   <div style={{ width:"100%" }}>
-  <nav className="navbar navbar-expand-lg">
+  <nav style={{ backgroundColor: themcolor }} className="navbar navbar-expand-lg">
 <Link  href="/">
 <a className="navbar-brand">
-<img src="/assets/icon/logo.png" />
+<img src={Endpoint+themlogo} width="120" height="60" />
 </a>
 </Link>
 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -159,7 +189,7 @@ return (
       <input onChange={(e)=>setsearch(e.target.value)} className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
       <button onClick={()=>toserach()} className="btn bg-white my-2 my-sm-0" type="submit"><Search/></button>
     </div>
-  <ul className="navbar-nav mr-auto nav-list-first">
+  <ul style={{ fontFamily:themfont }} className="navbar-nav mr-auto nav-list-first">
   <li className="nav-item">
    <Link href="#footer"><a className="nav-link text-white">contact</a></Link>
   </li>
@@ -175,9 +205,9 @@ return (
 </ul>
 </div>
 </nav>
-<nav  style={{ display:"flex",justifyContent:"space-between"}} className="navbar navbar-expand text-white">
+<nav  style={{ display:"flex",justifyContent:"space-between",backgroundColor:themcolor}} className="navbar navbar-expand text-white">
 <div className="subnavlist">
-<ul className="navbar-nav ">
+<ul style={{ fontFamily:themfont }} className="navbar-nav ">
 <li className="nav-item px-4">
 <Link href="/underteen"><a className="nav-link text-white">under 10$</a></Link>
 </li>
@@ -201,7 +231,7 @@ return (
 
 <React.Fragment>
 <SwipeableDrawer  id="drawernav1" anchor="left" open={menustatus1} onClose={()=>setmenustatus1(false)} >
-<ul className="list-group">
+<ul style={{ fontFamily:themfont }} className="list-group">
 <li className=" list-group-item px-4">
 <Link href="/underteen"><a className="nav-link text-dark">under 10$</a></Link>
 </li>
@@ -238,10 +268,8 @@ margin-left:10vw;
 font-size:18px;
 }
 div {
-font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 nav {
-background-color:rgb(245, 218, 99);
 font-size:1.2em;
 }
 .second-list-nav{
@@ -276,7 +304,7 @@ else{
 
   return (
     <div style={{ width:"100%" }}>
-    <div id="chat-bar" className="chat-bar">
+    <div style={{ fontFamily:themfont }} id="chat-bar" className="chat-bar">
    {openchat==false ? 
     <div onClick={()=>chatbaropen()}  className="w-100 h-auto d-flex justify-content-between cursorpointrt">
     Chat with us <MessageRounded/>
@@ -298,7 +326,7 @@ else{
    </div>
     </div>
     </div>
-    <div style={{ height:"auto" }} id="topbar" className="d-flex w-100 justify-content-between bg-dark py-1">
+    <div style={{ fontFamily:themfont }} style={{ height:"auto" }} id="topbar" className="d-flex w-100 justify-content-between bg-dark py-1">
     <ul className="nav w-50">
     <li className="nav-item px-2"><Link href="/privacy-policy"><a className="text-white font-weight-normal">privacy policy</a></Link></li>
     <li className="nav-item px-2"><Link  href="/FAQ"><a className="text-white font-weight-normal">FAQ</a></Link></li>
@@ -313,10 +341,10 @@ else{
     </ul>
     
     </div>
-    <nav className="navbar navbar-expand-lg">
+    <nav style={{ backgroundColor:themcolor }} className="navbar navbar-expand-lg">
   <Link  href="/">
   <a className="navbar-brand">
-  <img src="/assets/icon/logo.png" />
+  <img src={Endpoint+themlogo} width="120" height="60" />
   </a>
   </Link>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -327,7 +355,7 @@ else{
       <input onChange={(e)=>setsearch(e.target.value)} className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
       <button onClick={()=>toserach()} className="btn bg-white my-2 my-sm-0" type="submit"><Search/></button>
     </div>
-    <ul className="navbar-nav mr-auto nav-list-first">
+    <ul style={{ fontFamily:themfont }} className="navbar-nav mr-auto nav-list-first">
     <li className="nav-item">
      <a href="#footer" className="nav-link text-dark">contact</a>
     </li>
@@ -340,9 +368,9 @@ else{
   </ul>
   </div>
 </nav>
-<nav  style={{ display:"flex",justifyContent:"space-between"}} className="navbar navbar-expand text-white">
+<nav  style={{ display:"flex",justifyContent:"space-between",backgroundColor:themcolor}} className="navbar navbar-expand text-white">
 <div className="subnavlist">
-<ul className="navbar-nav ">
+<ul style={{ fontFamily:themfont }} className="navbar-nav ">
 <li className="nav-item px-4">
 <Link href="/underteen"><a className="nav-link text-dark">under 10$</a></Link>
 </li>
@@ -366,7 +394,7 @@ else{
 <SwipeableDrawer id="drawernav2" anchor="left" open={menustatus2} onClose={()=>setmenustatus2(false)} >
 <ul className="list-group">
 <li className="list-group-item px-4">
-<Link href="/underteen"><a className="nav-link text-dark">under 10$</a></Link>
+<Link style={{ fontFamily:themfont }} href="/underteen"><a className="nav-link text-dark">under 10$</a></Link>
 </li>
 <li className="list-group-item px-4">
 <Link href="/bestquality"><a className="nav-link text-dark">Best quality</a></Link>

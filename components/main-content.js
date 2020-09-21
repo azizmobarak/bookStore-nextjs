@@ -10,6 +10,27 @@ export default function Content() {
 
 const [products,setproducts]=useState([]);
 const [loading,setloading]=useState(false);
+const [themfont,setthemfont]=useState(false);
+const [totlatpages,settotoalpages]=useState(0);
+
+//font
+
+//get them color ---------------
+const getthemfont=()=>{
+  fetch(Endpoint+"api/user/font")
+  .then(res=>res.json())
+  .then(data=>{
+    if(data.message==="OK"){
+      setthemfont(data.data)
+    }else{
+    setthemfont('normal')
+    }
+  });
+}
+useEffect(()=>{
+  getthemfont();
+},[themfont])
+
 
 const getproducts =async()=>{
   setloading(true)
@@ -19,14 +40,14 @@ const getproducts =async()=>{
   })
   .then(res=>res.json())
   .then(data=>{
-    setloading(false);
     if(data.message=="OK"){
       setproducts(data.data);
-    settotalpages(data.pages)
+      setloading(false);
+    settotoalpages(data.pages)
     }
   })
   .catch(err=>{
-    alert("error in loading products refrech or try later")
+    console.log("error "+err)
   });
 }
 
@@ -36,7 +57,7 @@ const getproducts =async()=>{
 
 
   return (
-    <div className="container-fluid justify-content-center">
+    <div style={{ fontFamily:themfont }} className="container-fluid justify-content-center">
    <div className="container py-4">
    <label className="labeltitle">Most selling Notebooks ,Journals , Diary</label>
    <ListBooks loading={loading} products={products}/>

@@ -11,6 +11,26 @@ export default function Adminlogin() {
   const [countadmins,setcountadmins]=useState(0);
   const router = useRouter();
 
+//count admins 
+
+const getnumberadmin=()=>{
+  try{
+   fetch(Endpoint+"api/admin/count")
+   .then(res=>res.json())
+   .then(data=>{
+       if(data.message==="OK")
+       {
+           setcountadmins(data.data);
+       }else{
+           setcountadmins(0);
+       }
+   })
+  }catch(err){
+    setcountadmins(0);
+  }
+}
+////////////////////////////////////////
+
   const verifyloginadmin=()=>{
     try{
       return sessionStorage.getItem('adminlogin');
@@ -20,8 +40,8 @@ export default function Adminlogin() {
   }
 
 useEffect(()=>{
-    setcountadmins(getnumberadmin());
-})
+  getnumberadmin();
+},[countadmins])
 
 if(verifyloginadmin()==="true"){
    return <p className="container py-4">
@@ -30,7 +50,7 @@ if(verifyloginadmin()==="true"){
       </p>
 }else{
   return (
-   countadmins == 0 ?
+   countadmins == 0 || typeof countadmins==="undefined"  ?
      <AdminRegister/>
         : 
      <AdminLogin/>
@@ -38,19 +58,3 @@ if(verifyloginadmin()==="true"){
 }
 }
 
-const getnumberadmin=()=>{
-   try{
-    fetch(Endpoint+"api/admin/count")
-    .then(res=>res.json())
-    .then(data=>{
-        if(data.message==="OK")
-        {
-            return data.data;
-        }else{
-            return 0;
-        }
-    })
-   }catch{
-     return 0;
-   }
-}

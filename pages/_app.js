@@ -12,7 +12,8 @@ import Panel from './admin/panel';
 import {Provider,useSelector} from 'react-redux';
 import store from '../reducers/store';
 import islogged from "../components/validatelogin";
-const Endpoint = "http://localhost:2222";
+import api from '../components/db/Endpoin';
+const Endpoint=api;
 
 function MyApp({ Component, pageProps }) {
 
