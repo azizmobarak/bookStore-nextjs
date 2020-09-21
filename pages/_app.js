@@ -4,11 +4,9 @@ import '../styles/globals.css';
 import Navbarapp from '../components/navbar.js';
 import Footer from '../components/footer';
 import Adminlogin from './admin/login';
-
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import Panel from './admin/panel';
-
 import {Provider,useSelector} from 'react-redux';
 import store from '../reducers/store';
 import islogged from "../components/validatelogin";
