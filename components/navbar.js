@@ -178,7 +178,7 @@ return (
   <nav style={{ backgroundColor: themcolor }} className="navbar navbar-expand-lg">
 <Link  href="/">
 <a className="navbar-brand">
-<img src={Endpoint+themlogo} width="120" height="60" />
+<img src={Endpoint+themlogo} width="150" height="70" />
 </a>
 </Link>
 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

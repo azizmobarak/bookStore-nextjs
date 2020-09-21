@@ -11,8 +11,8 @@ const [slider,setslider]=useState([]);
 
 
 //get them slider ---------------
-const getslider=()=>{
-  fetch(Endpoint+"api/user/slider",{
+const getslider=async()=>{
+ await fetch(Endpoint+"api/user/slider",{
     method:"GET",
     credentials:"include",
   })
@@ -20,15 +20,15 @@ const getslider=()=>{
   .then(data=>{
     if(data.message==="OK"){
     setslider(data.data);
-    console.log("slider: "+Endpoint+slider.img1)
+    console.log("data : "+slider.img1)
     }else{
      
     }
   });
 }
 useEffect(()=>{
- return (()=>getslider());
-},[""])
+   getslider();
+},[slider.img1])
 //----------------
 
 
@@ -38,18 +38,18 @@ useEffect(()=>{
     Note : choose a book and you will be redirected to our store on amazon
     </Alert>
     <br/>
-{typeof slider!="undefined" || slider.length==0  ? 
-  <AliceCarousel stopAutoPlayOnHover fadeOutAnimation buttonsDisabled dotsDisabled autoPlay autoPlayInterval={5000}>
-  <img src={Endpoint+slider.img1} className="sliderimg"/>
-  <img src={Endpoint+slider.img2} className="sliderimg"/>
-  <img src={Endpoint+slider.img3} className="sliderimg"/>
+ {typeof slider.img1!="undefined" ?
+ <AliceCarousel stopAutoPlayOnHover fadeOutAnimation buttonsDisabled dotsDisabled autoPlay autoPlayInterval={5000}>
+ <img src={Endpoint+slider.img1} className="sliderimg"/>
+ <img src={Endpoint+slider.img2} className="sliderimg"/>
+ <img src={Endpoint+slider.img3} className="sliderimg"/>
 </AliceCarousel>
 :
-<div>
-please wait to load slider ..
+<div className="w-100">
+Loading slider ...
 <LinearProgress/>
 </div>
-}
+ }
 <style jsx>
 {`
 div{

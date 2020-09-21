@@ -104,7 +104,7 @@ useEffect(()=>{
     </div>
     </div>
     <div className="col-sm-2 d-flex justify-content-center align-items-center">
-    <img src={Endpoint+themlogo} width="130" height="60"/>
+    <img src={Endpoint+themlogo} width="150" height="70"/>
     </div>
     <div className="col-sm-5 d-flex justify-content-center" >
     <ContactForm/>

@@ -6,6 +6,7 @@ import Footer from '../components/footer';
 import Adminlogin from './admin/login';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import Panel from './admin/panel';
 

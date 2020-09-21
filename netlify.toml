@@ -1,0 +1,3 @@
+[build]
+command = "CI=false && npm run-script build"
+publish = "build"
